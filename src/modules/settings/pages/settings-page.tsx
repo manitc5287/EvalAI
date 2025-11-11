@@ -649,21 +649,21 @@ export default function SettingsPage() {
                   <div className="p-8">
                     <div className="space-y-6">
                       <div>
-                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Primary Color</label>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Primary Color</label>
                         <div className="flex gap-3 mt-2">
-                          <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00F5C6" />
-                          <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00F5C6" />
+                          <input type="color" className="flex min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] w-20 h-12 bg-white/5 border-white/10" value="#00F5C6" />
+                          <input className="flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] flex-1 bg-white/5 border-white/10 text-white" value="#00F5C6" />
                         </div>
                       </div>
                       <div>
-                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Secondary Color</label>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Secondary Color</label>
                         <div className="flex gap-3 mt-2">
-                          <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00AEEF" />
-                          <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00AEEF" />
+                          <input type="color" className="flex min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] w-20 h-12 bg-white/5 border-white/10" value="#00AEEF" />
+                          <input className="flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] flex-1 bg-white/5 border-white/10 text-white" value="#00AEEF" />
                         </div>
                       </div>
                       <div>
-                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Logo Upload</label>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Logo Upload</label>
                         <div className="mt-2 border-2 border-dashed border-white/10 rounded-lg p-8 text-center hover:border-[#00F5C6]/50 transition-colors cursor-pointer">
                           <p className="text-[#B0B6C1]">Drop your logo here or click to browse</p>
                           <p className="text-[#B0B6C1] text-xs mt-2">SVG, PNG, JPG (max 2MB)</p>
