@@ -41,8 +41,8 @@ export function DepartmentStats({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {stats.map((stat) => (
-        <div key={stat.label} className="relative group p-6">
-          <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+        <div key={stat.label} className="relative group">
+          <div className="relative p-4 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
             <div className="flex items-center gap-4">
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
                 <stat.icon className={`w-6 h-6 ${stat.iconColor || 'text-white'}`} aria-hidden="true" />

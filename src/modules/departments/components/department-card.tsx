@@ -18,8 +18,8 @@ export function DepartmentCard({ department, onEdit, onDelete }: DepartmentCardP
   const performanceScore = Math.min(95, 70 + Math.floor(Math.random() * 20));
 
   return (
-    <div className="relative group p-6 hover:shadow-lg hover:shadow-[#00F5C6]/10 transition-all">
-      <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+    <div className="relative group  hover:shadow-lg hover:shadow-[#00F5C6]/10 transition-all">
+      <div className="relative p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">

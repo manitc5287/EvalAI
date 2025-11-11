@@ -8,8 +8,8 @@ interface RoleSearchBarProps {
 
 export function RoleSearchBar({ onSearch }: RoleSearchBarProps) {
   return (
-    <div className="relative group py-5">
-      <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+    <div className="relative group">
+      <div className="relative p-4 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
         <div className="relative">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0B6C1]"

@@ -687,35 +687,35 @@ export default function SettingsPage() {
                         </button>
                       </div>
                       <div className="space-y-3">
-                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <Building2 className="w-5 h-5 text-[#00F5C6]" />
                             <span className="text-white">Engineering</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
                         </div>
-                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <Building2 className="w-5 h-5 text-[#00F5C6]" />
                             <span className="text-white">Sales</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
                         </div>
-                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <Building2 className="w-5 h-5 text-[#00F5C6]" />
                             <span className="text-white">Support</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
                         </div>
-                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <Building2 className="w-5 h-5 text-[#00F5C6]" />
                             <span className="text-white">HR</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
                         </div>
-                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <Building2 className="w-5 h-5 text-[#00F5C6]" />
                             <span className="text-white">Product</span>

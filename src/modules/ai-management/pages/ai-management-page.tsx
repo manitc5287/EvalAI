@@ -4,14 +4,25 @@
 
 'use client';
 
-import { Brain, Zap, TrendingUp, Activity, CircleAlert } from 'lucide-react';
+import { Brain, Zap, TrendingUp, Activity, CircleAlert, Settings } from 'lucide-react';
 import { useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function AIManagementPage() {
   const [activeTab, setActiveTab] = useState<'config' | 'prompts' | 'monitoring' | 'audit'>('config');
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(2000);
   const [autoFallback, setAutoFallback] = useState(false);
+
+  const chartData = [
+    { name: 'Mon', tokens: 12500, cost: 0.45 },
+    { name: 'Tue', tokens: 15800, cost: 0.57 },
+    { name: 'Wed', tokens: 11200, cost: 0.4 },
+    { name: 'Thu', tokens: 18900, cost: 0.68 },
+    { name: 'Fri', tokens: 16300, cost: 0.59 },
+    { name: 'Sat', tokens: 8900, cost: 0.32 },
+    { name: 'Sun', tokens: 7500, cost: 0.27 },
+  ];
 
   const stats = [
     {
@@ -254,22 +265,324 @@ export default function AIManagementPage() {
             </div>
           )}
 
-          {/* Other Tabs */}
+          {/* Prompt Library Tab */}
           {activeTab === 'prompts' && (
             <div className="flex-1 outline-none space-y-6 mt-6">
-              <p className="text-[#B0B6C1] text-center py-8">Prompt library content</p>
+              <div className="grid grid-cols-1 gap-4">
+                {/* Performance Review Summary */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="text-white">Performance Review Summary</h4>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00AEEF]/50 text-[#00AEEF]">
+                              Assessment
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-[#B0B6C1]">
+                            <span>~450 tokens</span>
+                            <span>•</span>
+                            <span>Last used 2 hours ago</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-white/10 text-white hover:bg-white/5 transition-all">
+                            <Settings className="w-4 h-4" />
+                          </button>
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-[#00F5C6]/10 transition-all">
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Skill Gap Analysis */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="text-white">Skill Gap Analysis</h4>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00AEEF]/50 text-[#00AEEF]">
+                              Analytics
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-[#B0B6C1]">
+                            <span>~380 tokens</span>
+                            <span>•</span>
+                            <span>Last used 5 hours ago</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-white/10 text-white hover:bg-white/5 transition-all">
+                            <Settings className="w-4 h-4" />
+                          </button>
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-[#00F5C6]/10 transition-all">
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Coaching Conversation */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="text-white">Coaching Conversation</h4>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00AEEF]/50 text-[#00AEEF]">
+                              Coaching
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-[#B0B6C1]">
+                            <span>~520 tokens</span>
+                            <span>•</span>
+                            <span>Last used 1 day ago</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-white/10 text-white hover:bg-white/5 transition-all">
+                            <Settings className="w-4 h-4" />
+                          </button>
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-[#00F5C6]/10 transition-all">
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Onboarding Assistant */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="text-white">Onboarding Assistant</h4>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00AEEF]/50 text-[#00AEEF]">
+                              Onboarding
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-[#B0B6C1]">
+                            <span>~290 tokens</span>
+                            <span>•</span>
+                            <span>Last used 2 days ago</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-white/10 text-white hover:bg-white/5 transition-all">
+                            <Settings className="w-4 h-4" />
+                          </button>
+                          <button className="inline-flex items-center justify-center gap-2 h-8 rounded-md px-3 border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-[#00F5C6]/10 transition-all">
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
+          {/* Monitoring Tab */}
           {activeTab === 'monitoring' && (
             <div className="flex-1 outline-none space-y-6 mt-6">
-              <p className="text-[#B0B6C1] text-center py-8">Monitoring content</p>
+              {/* Token Usage & Cost Chart */}
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-6">
+                    <h3 className="text-white text-lg mb-6">Token Usage & Cost</h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                        <XAxis dataKey="name" stroke="#B0B6C1" />
+                        <YAxis stroke="#B0B6C1" />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(10, 15, 28, 0.9)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderRadius: '8px',
+                            color: '#fff',
+                          }}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="tokens"
+                          stroke="#00F5C6"
+                          strokeWidth={2}
+                          dot={{ fill: '#00F5C6', r: 4 }}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="cost"
+                          stroke="#00AEEF"
+                          strokeWidth={2}
+                          dot={{ fill: '#00AEEF', r: 4 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+
+              {/* Top Use Cases & Recent Alerts */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Top Use Cases */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <h4 className="text-white mb-4">Top Use Cases</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="text-white">Performance Reviews</span>
+                            <span className="text-[#B0B6C1]">31.3K</span>
+                          </div>
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" style={{ width: '35%' }} />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="text-white">Skill Analysis</span>
+                            <span className="text-[#B0B6C1]">25.1K</span>
+                          </div>
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" style={{ width: '28%' }} />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="text-white">Coaching Sessions</span>
+                            <span className="text-[#B0B6C1]">19.7K</span>
+                          </div>
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" style={{ width: '22%' }} />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="text-white">Onboarding</span>
+                            <span className="text-[#B0B6C1]">13.4K</span>
+                          </div>
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" style={{ width: '15%' }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Alerts */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <h4 className="text-white mb-4">Recent Alerts</h4>
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-yellow-400/10 border border-yellow-400/30">
+                          <div className="flex items-start gap-2">
+                            <CircleAlert className="w-4 h-4 text-yellow-400 mt-0.5" />
+                            <div>
+                              <p className="text-yellow-400 text-sm">High latency detected</p>
+                              <p className="text-[#B0B6C1] text-xs mt-1">Avg response time: 3.2s (2 hours ago)</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 rounded-lg bg-[#00F5C6]/10 border border-[#00F5C6]/30">
+                          <div className="flex items-start gap-2">
+                            <CircleAlert className="w-4 h-4 text-[#00F5C6] mt-0.5" />
+                            <div>
+                              <p className="text-[#00F5C6] text-sm">Cost threshold reached</p>
+                              <p className="text-[#B0B6C1] text-xs mt-1">75% of monthly budget used (1 day ago)</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
+          {/* Audit Logs Tab */}
           {activeTab === 'audit' && (
             <div className="flex-1 outline-none space-y-6 mt-6">
-              <p className="text-[#B0B6C1] text-center py-8">Audit logs content</p>
+              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                <div className="p-6">
+                  <h3 className="text-white text-lg mb-4">AI Audit Trail</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-2 h-2 rounded-full bg-[#00F5C6]" />
+                        <div>
+                          <p className="text-white text-sm">Model changed to GPT-4 Turbo</p>
+                          <p className="text-[#B0B6C1] text-xs mt-1">by Admin · 2 hours ago</p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                        success
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-2 h-2 rounded-full bg-[#00F5C6]" />
+                        <div>
+                          <p className="text-white text-sm">Temperature adjusted to 0.7</p>
+                          <p className="text-[#B0B6C1] text-xs mt-1">by Sarah Johnson · 1 day ago</p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                        success
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-2 h-2 rounded-full bg-[#00F5C6]" />
+                        <div>
+                          <p className="text-white text-sm">New prompt template created</p>
+                          <p className="text-[#B0B6C1] text-xs mt-1">by Michael Chen · 2 days ago</p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                        success
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-2 h-2 rounded-full bg-[#00F5C6]" />
+                        <div>
+                          <p className="text-white text-sm">API key rotated</p>
+                          <p className="text-[#B0B6C1] text-xs mt-1">by Admin · 5 days ago</p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                        success
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
