@@ -290,7 +290,7 @@ export default function BillingPage() {
               {plans.map((plan, index) => (
                 <div
                   key={index}
-                  className={`relative group p-6 ${plan.isPopular ? 'ring-2 ring-[#00F5C6] shadow-lg shadow-[#00F5C6]/20' : ''}`}
+                  className={`relative group ${plan.isCurrent ? 'ring-2 ring-[#00F5C6] shadow-lg shadow-[#00F5C6]/20' : ''}`}
                 >
                   <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all p-6">
                     {plan.isPopular && (
