@@ -120,58 +120,251 @@ export default function OrganizationSetupPage() {
                 )}
 
                 {currentStep === 2 && (
-                  <div className="text-center py-8">
-                    <Palette className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">Branding Settings</p>
-                    <p className="text-[#B0B6C1]">Upload your logo and customize colors</p>
+                  <div className="space-y-6">
+                    <div>
+                      <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Primary Color</label>
+                      <div className="flex gap-3 mt-2">
+                        <input type="color" className="flex min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] w-20 h-12 bg-white/5 border-white/10" value="#00F5C6" />
+                        <input className="flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] flex-1 bg-white/5 border-white/10 text-white" value="#00F5C6" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Secondary Color</label>
+                      <div className="flex gap-3 mt-2">
+                        <input type="color" className="flex min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] w-20 h-12 bg-white/5 border-white/10" value="#00AEEF" />
+                        <input className="flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] flex-1 bg-white/5 border-white/10 text-white" value="#00AEEF" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="flex items-center gap-2 text-sm leading-none font-medium select-none text-white">Logo Upload</label>
+                      <div className="mt-2 border-2 border-dashed border-white/10 rounded-lg p-8 text-center hover:border-[#00F5C6]/50 transition-colors cursor-pointer">
+                        <p className="text-[#B0B6C1]">Drop your logo here or click to browse</p>
+                        <p className="text-[#B0B6C1] text-xs mt-2">SVG, PNG, JPG (max 2MB)</p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 3 && (
-                  <div className="text-center py-8">
-                    <Users className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">Department Setup</p>
-                    <p className="text-[#B0B6C1]">Configure your organization departments</p>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-[#B0B6C1]">Define your organizational structure</p>
+                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                        <Brain className="w-4 h-4" />
+                        AI Auto-Suggest
+                      </button>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                          <span className="text-white">Engineering</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                      </div>
+                      <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                          <span className="text-white">Sales</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                      </div>
+                      <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                          <span className="text-white">Support</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                      </div>
+                      <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                          <span className="text-white">HR</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                      </div>
+                      <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                          <span className="text-white">Product</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                      </div>
+                    </div>
+                    <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                      + Add Department
+                    </button>
                   </div>
                 )}
 
                 {currentStep === 4 && (
-                  <div className="text-center py-8">
-                    <Shield className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">Role Configuration</p>
-                    <p className="text-[#B0B6C1]">Define user roles and permissions</p>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-[#B0B6C1]">Configure roles and permissions</p>
+                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                        <Brain className="w-4 h-4" />
+                        AI Auto-Configure
+                      </button>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Shield className="w-5 h-5 text-[#00AEEF]" />
+                          <span className="text-white">Admin</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Shield className="w-5 h-5 text-[#00AEEF]" />
+                          <span className="text-white">Manager</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Shield className="w-5 h-5 text-[#00AEEF]" />
+                          <span className="text-white">Team Lead</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Shield className="w-5 h-5 text-[#00AEEF]" />
+                          <span className="text-white">Employee</span>
+                        </div>
+                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 5 && (
-                  <div className="text-center py-8">
-                    <Target className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">KPI Setup</p>
-                    <p className="text-[#B0B6C1]">Configure key performance indicators</p>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-[#B0B6C1]">Select KPI packs for your organization</p>
+                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                        <Brain className="w-4 h-4" />
+                        AI Recommendations
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-white font-medium">IT Support</h4>
+                          <input type="checkbox" className="rounded border-white/20" />
+                        </div>
+                        <p className="text-sm text-[#B0B6C1]">8 KPIs</p>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-white font-medium">Sales</h4>
+                          <input type="checkbox" className="rounded border-white/20" />
+                        </div>
+                        <p className="text-sm text-[#B0B6C1]">10 KPIs</p>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-white font-medium">HR</h4>
+                          <input type="checkbox" className="rounded border-white/20" />
+                        </div>
+                        <p className="text-sm text-[#B0B6C1]">12 KPIs</p>
+                      </div>
+                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-white font-medium">Engineering</h4>
+                          <input type="checkbox" className="rounded border-white/20" />
+                        </div>
+                        <p className="text-sm text-[#B0B6C1]">14 KPIs</p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 6 && (
-                  <div className="text-center py-8">
-                    <UserCog className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">Admin Users</p>
-                    <p className="text-[#B0B6C1]">Add administrator accounts</p>
+                  <div className="space-y-6">
+                    <p className="text-[#B0B6C1] mb-4">Add administrator accounts</p>
+                    <div>
+                      <label htmlFor="admin-email" className="block text-sm text-[#B0B6C1] mb-2">Email Address</label>
+                      <input
+                        id="admin-email"
+                        type="email"
+                        placeholder="admin@company.com"
+                        className="w-full h-9 px-3 py-2 bg-white/5 border border-white/10 rounded-md text-white placeholder:text-[#B0B6C1]/50 focus:outline-none focus:border-[#00F5C6] transition-all"
+                      />
+                    </div>
+                    <button className="h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                      Add Another Admin
+                    </button>
                   </div>
                 )}
 
                 {currentStep === 7 && (
-                  <div className="text-center py-8">
-                    <Lock className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">Security Settings</p>
-                    <p className="text-[#B0B6C1]">Configure security policies</p>
+                  <div className="space-y-6">
+                    <p className="text-[#B0B6C1] mb-4">Configure security settings</p>
+                    <div className="space-y-4">
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">Enable SSO (Single Sign-On)</p>
+                          <p className="text-sm text-[#B0B6C1]">Allow users to sign in with corporate credentials</p>
+                        </div>
+                      </label>
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" defaultChecked className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">Require Two-Factor Authentication</p>
+                          <p className="text-sm text-[#B0B6C1]">Enhance security with 2FA for all users</p>
+                        </div>
+                      </label>
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">IP Allowlist</p>
+                          <p className="text-sm text-[#B0B6C1]">Restrict access to specific IP addresses</p>
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 )}
 
                 {currentStep === 8 && (
-                  <div className="text-center py-8">
-                    <Brain className="w-12 h-12 mx-auto mb-4 text-[#00F5C6]" />
-                    <p className="text-white text-lg mb-2">AI Configuration</p>
-                    <p className="text-[#B0B6C1]">Set up AI model preferences</p>
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00F5C6] to-[#00AEEF] flex items-center justify-center">
+                        <Brain className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-white font-medium">AI-Powered Features</h3>
+                        <p className="text-sm text-[#B0B6C1]">Enable AI to enhance assessments</p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" defaultChecked className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">Performance Review Summaries</p>
+                          <p className="text-sm text-[#B0B6C1]">Auto-generate summaries from assessment data</p>
+                        </div>
+                      </label>
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" defaultChecked className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">Skill Gap Analysis</p>
+                          <p className="text-sm text-[#B0B6C1]">Identify areas for employee development</p>
+                        </div>
+                      </label>
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" defaultChecked className="mt-0.5 rounded border-white/20" />
+                        <div>
+                          <p className="text-white">Coaching Recommendations</p>
+                          <p className="text-sm text-[#B0B6C1]">Receive AI-powered coaching suggestions</p>
+                        </div>
+                      </label>
+                    </div>
+                    <button className="w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-white font-medium hover:opacity-90 transition-all">
+                      Run AI Auto-Setup
+                    </button>
                   </div>
                 )}
               </div>
