@@ -1,15 +1,25 @@
 'use client';
 
 import { User, UserStatus } from '../types';
-import { MoreVertical } from 'lucide-react';
+import { MoreVertical, Eye, Edit, UserX } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 
 interface UserTableProps {
   users?: User[];
   onUserClick?: (user: User) => void;
+  onEditClick?: (user: User) => void;
+  onDeactivateClick?: (user: User) => void;
 }
 
 // Default sample data
-const defaultUsers: User[] = [
+export const mockUsers: User[] = [
   {
     id: '1',
     name: 'Sarah Johnson',
@@ -87,7 +97,22 @@ function getStatusClasses(status: UserStatus): string {
   }
 }
 
-export function UserTable({ users = defaultUsers, onUserClick }: UserTableProps) {
+export function UserTable({ users = mockUsers, onUserClick, onEditClick, onDeactivateClick }: UserTableProps) {
+  const handleViewDetails = (user: User, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUserClick?.(user);
+  };
+
+  const handleEdit = (user: User, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onEditClick?.(user);
+  };
+
+  const handleDeactivate = (user: User, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDeactivateClick?.(user);
+  };
+
   return (
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -207,17 +232,42 @@ export function UserTable({ users = defaultUsers, onUserClick }: UserTableProps)
                       data-slot="table-cell"
                       className="p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                      <button
-                        data-slot="dropdown-menu-trigger"
-                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 size-9 rounded-md text-[#B0B6C1] hover:text-white"
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Handle dropdown menu
-                        }}
-                      >
-                        <MoreVertical className="w-4 h-4" aria-hidden="true" />
-                      </button>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-9 w-9 text-[#B0B6C1] hover:text-white"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreVertical className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem
+                            onClick={(e: React.MouseEvent) => handleViewDetails(user, e)}
+                            className="cursor-pointer"
+                          >
+                            <Eye className="w-4 h-4 mr-2 text-[#00AEEF]" />
+                            View Details
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e: React.MouseEvent) => handleEdit(user, e)}
+                            className="cursor-pointer"
+                          >
+                            <Edit className="w-4 h-4 mr-2 text-[#00F5C6]" />
+                            Edit User
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={(e: React.MouseEvent) => handleDeactivate(user, e)}
+                            className="cursor-pointer text-red-400 focus:text-red-400"
+                          >
+                            <UserX className="w-4 h-4 mr-2" />
+                            Deactivate
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </td>
                   </tr>
                 ))}

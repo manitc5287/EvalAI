@@ -16,6 +16,9 @@ export interface Department {
   location?: string;
   createdAt: string;
   updatedAt: string;
+  manager?: string; // Manager ID
+  managerName?: string; // Manager display name
+  goals?: string; // Department goals
 }
 
 export type DepartmentStatus = 'active' | 'inactive' | 'archived';
@@ -32,4 +35,16 @@ export interface DepartmentStats {
   activeDepartments: number;
   totalEmployees: number;
   averageEmployeesPerDept: number;
+}
+
+export interface CreateDepartmentInput {
+  name: string;
+  description: string;
+  manager?: string;
+  goals?: string;
+}
+
+export interface UpdateDepartmentInput extends Partial<CreateDepartmentInput> {
+  id: string;
+  status?: DepartmentStatus;
 }

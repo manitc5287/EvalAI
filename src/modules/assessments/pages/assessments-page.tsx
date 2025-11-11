@@ -6,36 +6,47 @@
 
 import { Calendar, Users, CircleCheck, Plus, ChevronRight, Clock } from 'lucide-react';
 import { useState } from 'react';
+import { useAssessmentsStore } from '../../../store/useAssessmentsStore';
+import { AssessmentModal } from '../components/assessment-modal';
+import type { AssessmentFormData } from '../schemas/assessment.schema';
+import type { Assessment } from '../types';
 
 export default function AssessmentsPage() {
+  const { assessments, addAssessment, updateAssessment } = useAssessmentsStore();
+  
   const [activeTab, setActiveTab] = useState<'active' | 'scheduled' | 'completed'>('active');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAssessment, setSelectedAssessment] = useState<Assessment | undefined>(undefined);
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
 
+  // Filter assessments by status
+  const activeAssessments = assessments.filter((a: Assessment) => a.status === 'active');
+  const draftAssessments = assessments.filter((a: Assessment) => a.status === 'draft');
+  const archivedAssessments = assessments.filter((a: Assessment) => a.status === 'archived');
+
+  // Get the most recent active assessment
+  const activeCycle = activeAssessments[0];
+
+  // Calculate stats
   const stats = [
     {
       label: 'Active Cycles',
-      value: '3',
+      value: activeAssessments.length.toString(),
       icon: Calendar,
     },
     {
       label: 'Total Participants',
-      value: '442',
+      value: activeAssessments.reduce((sum: number, a: Assessment) => sum + a.assignedTo, 0).toString(),
       icon: Users,
     },
     {
       label: 'Completion Rate',
-      value: '72%',
+      value: activeAssessments.length > 0
+        ? `${Math.round((activeAssessments.reduce((sum: number, a: Assessment) => sum + a.completedBy, 0) / activeAssessments.reduce((sum: number, a: Assessment) => sum + a.assignedTo, 0)) * 100)}%`
+        : '0%',
       icon: CircleCheck,
     },
   ];
-
-  const activeCycle = {
-    title: 'Q3 2024 Performance Review',
-    status: 'active',
-    participants: 124,
-    completed: 89,
-    dueDate: '2024-09-30',
-    progress: 71.77,
-  };
 
   const pendingReviews = [
     {
@@ -61,6 +72,43 @@ export default function AssessmentsPage() {
     },
   ];
 
+  const handleAddClick = () => {
+    setSelectedAssessment(undefined);
+    setModalMode('create');
+    setIsModalOpen(true);
+  };
+
+  const handleEditClick = (assessment: Assessment) => {
+    setSelectedAssessment(assessment);
+    setModalMode('edit');
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = (data: AssessmentFormData) => {
+    if (modalMode === 'create') {
+      addAssessment({
+        title: data.name,
+        description: data.description,
+        type: data.type,
+        departmentId: '1', // Default for now
+        departmentName: data.participants === 'all' ? 'All Departments' : 'Engineering',
+        status: data.status || 'draft',
+        totalQuestions: 0,
+        duration: 0,
+        passingScore: 0,
+        assignedTo: data.participants === 'all' ? 100 : 50,
+        completedBy: 0,
+      });
+    } else if (selectedAssessment) {
+      updateAssessment(selectedAssessment.id, {
+        title: data.name,
+        description: data.description,
+        type: data.type,
+        status: data.status,
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen p-6 lg:p-8">
       <div className="max-w-[1600px] mx-auto space-y-6">
@@ -70,7 +118,10 @@ export default function AssessmentsPage() {
             <h1 className="text-white text-3xl mb-2">Assessments</h1>
             <p className="text-[#B0B6C1]">Create and manage performance assessment cycles</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+          <button 
+            onClick={handleAddClick}
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
+          >
             <Plus className="w-4 h-4" />
             Create Assessment
           </button>
@@ -136,67 +187,123 @@ export default function AssessmentsPage() {
           {/* Active Tab Content */}
           {activeTab === 'active' && (
             <div className="flex-1 outline-none space-y-4 mt-6">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                  <div className="p-6">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <h3 className="text-white text-lg">{activeCycle.title}</h3>
-                          <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
-                            {activeCycle.status}
-                          </span>
+              {activeCycle ? (
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                    <div className="p-6">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-white text-lg">{activeCycle.title}</h3>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                              {activeCycle.status}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-4 text-sm text-[#B0B6C1] mb-4">
+                            <div className="flex items-center gap-2">
+                              <Users className="w-4 h-4" />
+                              <span>{activeCycle.assignedTo} participants</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-4 h-4" />
+                              <span>Due {new Date(activeCycle.updatedAt).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span className="text-[#B0B6C1]">Progress</span>
+                              <span className="text-white">{activeCycle.completedBy} / {activeCycle.assignedTo} completed</span>
+                            </div>
+                            <div className="relative w-full overflow-hidden rounded-full h-2 bg-[#00F5C6]/20">
+                              <div 
+                                className="h-full transition-all bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" 
+                                style={{ width: `${(activeCycle.completedBy / activeCycle.assignedTo) * 100}%` }}
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-4 text-sm text-[#B0B6C1] mb-4">
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4" />
-                            <span>{activeCycle.participants} participants</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4" />
-                            <span>Due {activeCycle.dueDate}</span>
-                          </div>
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => handleEditClick(activeCycle)}
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 border border-white/10 text-white hover:bg-white/5"
+                          >
+                            Edit
+                          </button>
+                          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                            Manage
+                          </button>
                         </div>
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-[#B0B6C1]">Progress</span>
-                            <span className="text-white">{activeCycle.completed} / {activeCycle.participants} completed</span>
-                          </div>
-                          <div className="relative w-full overflow-hidden rounded-full h-2 bg-[#00F5C6]/20">
-                            <div 
-                              className="h-full transition-all bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" 
-                              style={{ width: `${activeCycle.progress}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 border border-white/10 text-white hover:bg-white/5">
-                          View Details
-                        </button>
-                        <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
-                          Manage
-                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <p className="text-[#B0B6C1] text-center py-8">No active assessments</p>
+              )}
             </div>
           )}
 
           {/* Scheduled Tab Content */}
           {activeTab === 'scheduled' && (
             <div className="flex-1 outline-none space-y-4 mt-6">
-              <p className="text-[#B0B6C1] text-center py-8">No scheduled assessments</p>
+              {draftAssessments.length > 0 ? (
+                <div className="space-y-4">
+                  {draftAssessments.map((assessment: Assessment) => (
+                    <div key={assessment.id} className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                        <div className="p-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h3 className="text-white text-lg mb-2">{assessment.title}</h3>
+                              <p className="text-[#B0B6C1] text-sm">{assessment.description}</p>
+                            </div>
+                            <button 
+                              onClick={() => handleEditClick(assessment)}
+                              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 border border-white/10 text-white hover:bg-white/5"
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-[#B0B6C1] text-center py-8">No scheduled assessments</p>
+              )}
             </div>
           )}
 
           {/* Completed Tab Content */}
           {activeTab === 'completed' && (
             <div className="flex-1 outline-none space-y-4 mt-6">
-              <p className="text-[#B0B6C1] text-center py-8">No completed assessments</p>
+              {archivedAssessments.length > 0 ? (
+                <div className="space-y-4">
+                  {archivedAssessments.map((assessment: Assessment) => (
+                    <div key={assessment.id} className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                        <div className="p-6">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h3 className="text-white text-lg mb-2">{assessment.title}</h3>
+                              <p className="text-[#B0B6C1] text-sm">{assessment.description}</p>
+                            </div>
+                            <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-white/20 text-white/60">
+                              Archived
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-[#B0B6C1] text-center py-8">No completed assessments</p>
+              )}
             </div>
           )}
         </div>
@@ -239,6 +346,15 @@ export default function AssessmentsPage() {
           </div>
         </div>
       </div>
+
+      {/* Assessment Modal */}
+      <AssessmentModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
+        assessment={selectedAssessment}
+        mode={modalMode}
+      />
     </div>
   );
 }

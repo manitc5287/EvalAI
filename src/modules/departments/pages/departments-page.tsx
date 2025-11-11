@@ -7,30 +7,73 @@
 
 import { useState } from 'react';
 import { Plus, Building2 } from 'lucide-react';
-import { useDepartments } from '../hooks/use-departments';
+import { useDepartmentsStore } from '@/src/store/useDepartmentsStore';
 import { DepartmentStats } from '../components/department-stats';
 import { DepartmentSearchBar } from '../components/department-search-bar';
 import { DepartmentCard } from '../components/department-card';
+import { DepartmentModal } from '../components/department-modal';
 import { getDepartmentStats } from '../lib/departments-helpers';
+import { Department } from '../types';
+import { DepartmentFormData } from '../schemas/department.schema';
 
 export function DepartmentsPage() {
-  const { departments, loading, search } = useDepartments();
+  const { departments, addDepartment, updateDepartment, deleteDepartment } = useDepartmentsStore();
+  
   const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   
   const stats = getDepartmentStats(departments);
 
+  // Filter departments based on search query
+  const filteredDepartments = departments.filter((dept) =>
+    dept.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    dept.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const handleSearch = (value: string) => {
     setSearchQuery(value);
-    search(value);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white">Loading departments...</div>
-      </div>
-    );
-  }
+  const handleAddClick = () => {
+    setModalMode('add');
+    setSelectedDepartment(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditClick = (department: Department) => {
+    setModalMode('edit');
+    setSelectedDepartment(department);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteClick = (department: Department) => {
+    if (window.confirm(`Are you sure you want to delete ${department.name}?`)) {
+      deleteDepartment(department.id);
+    }
+  };
+
+  const handleSubmit = (data: DepartmentFormData) => {
+    if (modalMode === 'edit' && selectedDepartment) {
+      updateDepartment(selectedDepartment.id, data);
+    } else {
+      addDepartment({
+        name: data.name,
+        description: data.description,
+        headOfDepartment: data.manager || 'Unassigned',
+        headOfDepartmentId: data.manager || '0',
+        manager: data.manager,
+        managerName: data.manager,
+        employeeCount: 0,
+        kpiCount: 0,
+        status: data.status || 'active',
+        goals: data.goals,
+      });
+    }
+    setIsModalOpen(false);
+    setSelectedDepartment(null);
+  };
 
   return (
     <div className="min-h-screen p-6 lg:p-8">
@@ -41,7 +84,10 @@ export function DepartmentsPage() {
             <h1 className="text-white text-3xl mb-2">Departments</h1>
             <p className="text-[#B0B6C1]">Manage organizational departments and team structure</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+          <button 
+            onClick={handleAddClick}
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
+          >
             <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
             Add Department
           </button>
@@ -59,18 +105,18 @@ export function DepartmentsPage() {
 
         {/* Departments Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {departments.map((department) => (
+          {filteredDepartments.map((department) => (
             <DepartmentCard
               key={department.id}
               department={department}
-              onEdit={(dept) => console.log('Edit', dept)}
-              onDelete={(dept) => console.log('Delete', dept)}
+              onEdit={handleEditClick}
+              onDelete={handleDeleteClick}
             />
           ))}
         </div>
 
         {/* Empty State */}
-        {departments.length === 0 && (
+        {filteredDepartments.length === 0 && (
           <div className="text-center py-12">
             <Building2 className="w-16 h-16 text-[#B0B6C1] mx-auto mb-4" />
             <h3 className="text-white text-lg font-semibold mb-2">No departments found</h3>
@@ -80,6 +126,15 @@ export function DepartmentsPage() {
           </div>
         )}
       </div>
+
+      {/* Department Modal */}
+      <DepartmentModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
+        department={selectedDepartment}
+        mode={modalMode}
+      />
     </div>
   );
 }

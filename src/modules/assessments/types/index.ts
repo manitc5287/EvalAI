@@ -28,3 +28,21 @@ export interface AssessmentStats {
   totalCompletions: number;
   averageScore: number;
 }
+
+export interface CreateAssessmentInput {
+  title: string;
+  description: string;
+  type: AssessmentType;
+  departmentId: string;
+  departmentName: string;
+  status: AssessmentStatus;
+  totalQuestions: number;
+  duration: number;
+  passingScore: number;
+  assignedTo: number;
+  completedBy: number;
+}
+
+export interface UpdateAssessmentInput extends Partial<CreateAssessmentInput> {
+  id: string;
+}

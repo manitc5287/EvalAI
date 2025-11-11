@@ -4,7 +4,14 @@
 
 'use client';
 
-import { Building2, Users, UserCheck, EllipsisVertical } from 'lucide-react';
+import { Building2, Users, UserCheck, EllipsisVertical, Edit, Trash2 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Department } from '../types';
 
 interface DepartmentCardProps {
@@ -16,6 +23,16 @@ interface DepartmentCardProps {
 export function DepartmentCard({ department, onEdit, onDelete }: DepartmentCardProps) {
   // Calculate a performance score (you can adjust this logic)
   const performanceScore = Math.min(95, 70 + Math.floor(Math.random() * 20));
+
+  const handleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onEdit?.(department);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete?.(department);
+  };
 
   return (
     <div className="relative group  hover:shadow-lg hover:shadow-[#00F5C6]/10 transition-all">
@@ -34,12 +51,27 @@ export function DepartmentCard({ department, onEdit, onDelete }: DepartmentCardP
             </div>
           </div>
           
-          <button
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all size-9 rounded-md text-[#B0B6C1] hover:text-white hover:bg-accent dark:hover:bg-accent/50"
-            aria-label="More options"
-          >
-            <EllipsisVertical className="w-4 h-4" aria-hidden="true" />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all size-9 rounded-md text-[#B0B6C1] hover:text-white hover:bg-accent dark:hover:bg-accent/50"
+                aria-label="More options"
+              >
+                <EllipsisVertical className="w-4 h-4" aria-hidden="true" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem onClick={handleEdit} className="cursor-pointer">
+                <Edit className="w-4 h-4 mr-2 text-[#00F5C6]" />
+                <span>Edit Department</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-red-400">
+                <Trash2 className="w-4 h-4 mr-2" />
+                <span>Delete Department</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Description */}

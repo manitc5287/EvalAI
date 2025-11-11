@@ -1,11 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { Plus, ChevronRight } from 'lucide-react';
+import { useKPIsStore } from '@/src/store/useKPIsStore';
 import { KPIPackCard } from '../components/kpi-pack-card';
 import { KPIRecommendations } from '../components/kpi-recommendations';
 import { KPIListItem } from '../components/kpi-list-item';
 import { KPISearchBar } from '../components/kpi-search-bar';
+import { KPIModal } from '../components/kpi-modal';
 import { KPI, KPIPack } from '../types';
+import { KPIFormData } from '../schemas/kpi.schema';
 
 // Sample KPI Packs
 const kpiPacks: KPIPack[] = [
@@ -39,52 +43,96 @@ const kpiPacks: KPIPack[] = [
   },
 ];
 
-// Sample Active KPIs
-const activeKPIs: KPI[] = [
-  {
-    id: '1',
-    name: 'Customer Satisfaction Score',
-    department: 'Support',
-    weight: 30,
-    status: 'active',
-    isAIGenerated: true,
-  },
-  {
-    id: '2',
-    name: 'First Response Time',
-    department: 'Support',
-    weight: 25,
-    status: 'active',
-    isAIGenerated: true,
-  },
-  {
-    id: '3',
-    name: 'Ticket Resolution Rate',
-    department: 'Support',
-    weight: 20,
-    status: 'active',
-    isAIGenerated: false,
-  },
-  {
-    id: '4',
-    name: 'Sales Conversion Rate',
-    department: 'Sales',
-    weight: 35,
-    status: 'active',
-    isAIGenerated: true,
-  },
-  {
-    id: '5',
-    name: 'Pipeline Velocity',
-    department: 'Sales',
-    weight: 25,
-    status: 'draft',
-    isAIGenerated: false,
-  },
-  {
-    id: '6',
-    name: 'Code Review Quality',
-    department: 'Engineering',
+export default function KPIsPage() {
+  const { kpis, addKPI, updateKPI, deleteKPI } = useKPIsStore();
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [selectedKPI, setSelectedKPI] = useState<KPI | null>(null);
+
+  // Filter KPIs based on search query
+  const activeKPIs = kpis.filter((kpi: KPI) => kpi.status === 'active');
+  const filteredKPIs = activeKPIs.filter((kpi: KPI) =>
+    kpi.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (kpi.description && kpi.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  const handleAddClick = () => {
+    setModalMode('add');
+    setSelectedKPI(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditClick = (kpi: KPI) => {
+    setModalMode('edit');
+    setSelectedKPI(kpi);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteClick = (kpi: KPI) => {
+    if (window.confirm(`Are you sure you want to delete ${kpi.name}?`)) {
+      deleteKPI(kpi.id);
+    }
+  };
+
+  const handleSubmit = (data: KPIFormData) => {
+    if (modalMode === 'edit' && selectedKPI) {
+      updateKPI(selectedKPI.id, {
+        name: data.name,
+        description: data.description,
+        formula: data.formula,
+        type: data.type,
+        frequency: data.frequency,
+        target: data.target,
+        unit: data.unit,
+        department: data.department,
+        owner: data.owner,
+        status: data.status || 'active',
+      });
+    } else {
+      addKPI({
+        name: data.name,
+        description: data.description || '',
+        formula: data.formula || '',
+        type: data.type,
+        frequency: data.frequency,
+        target: data.target,
+        currentValue: 0,
+        unit: data.unit,
+        status: data.status || 'active',
+        department: data.department || '',
+        owner: data.owner || '',
+        weight: 1,
+      });
+    }
+    setIsModalOpen(false);
+    setSelectedKPI(null);
+  };
+
+  const handleAddPack = (pack: KPIPack) => {
+    console.log('Add pack:', pack);
+  };
+
+  const handleViewAllPacks = () => {
+    console.log('View all packs');
+  };
+
+  const handleViewRecommendations = () => {
+    console.log('View recommendations');
+  };
+
+  const handleFilter = () => {
+    console.log('Filter clicked');
+  };
+
+  return (
+    <div className="min-h-screen p-6 lg:p-8">
+      <div className="max-w-[1600px] mx-auto space-y-6">{/*
     weight: 30,
     status: 'active',
     isAIGenerated: true,
@@ -138,10 +186,9 @@ export function KPIsPage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <button
-              data-slot="dialog-trigger"
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
               type="button"
-              onClick={handleCreateKPI}
+              onClick={handleAddClick}
             >
               <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
               Create KPI
@@ -180,16 +227,34 @@ export function KPIsPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
             <div className="p-6">
-              <h3 className="text-white text-lg mb-4">Active KPIs</h3>
+              <h3 className="text-white text-lg mb-4">Active KPIs ({filteredKPIs.length})</h3>
               <div className="space-y-3">
-                {activeKPIs.map((kpi) => (
-                  <KPIListItem key={kpi.id} kpi={kpi} onEdit={handleEditKPI} />
+                {filteredKPIs.map((kpi) => (
+                  <KPIListItem 
+                    key={kpi.id} 
+                    kpi={kpi} 
+                    onEdit={handleEditClick}
+                  />
                 ))}
+                {filteredKPIs.length === 0 && (
+                  <p className="text-[#B0B6C1] text-center py-8">
+                    {searchQuery ? 'No KPIs found matching your search' : 'No active KPIs yet'}
+                  </p>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* KPI Modal */}
+      <KPIModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
+        kpi={selectedKPI}
+        mode={modalMode}
+      />
     </div>
   );
 }

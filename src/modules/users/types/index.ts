@@ -10,3 +10,17 @@ export interface User {
   skillScore: number;
   avatar?: string;
 }
+
+export interface CreateUserInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  department: string;
+  role: string;
+  manager?: string;
+  sendInvite?: boolean;
+}
+
+export interface UpdateUserInput extends Partial<CreateUserInput> {
+  id: string;
+}

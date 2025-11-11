@@ -1,129 +1,84 @@
 'use client';
 
+import { useState } from 'react';
 import { Plus } from 'lucide-react';
+import { useRolesStore } from '@/src/store/useRolesStore';
 import { RoleStats } from '../components/role-stats';
 import { RoleSearchBar } from '../components/role-search-bar';
 import { RoleCard } from '../components/role-card';
+import { RoleModal } from '../components/role-modal';
 import { Role } from '../types';
-
-// Default sample roles data
-const defaultRoles: Role[] = [
-  {
-    id: '1',
-    name: 'Super Admin',
-    type: 'system',
-    userCount: 2,
-    description: 'Full system access with all permissions',
-    permissions: [
-      { name: 'Users & Teams', enabled: true },
-      { name: 'Departments', enabled: true },
-      { name: 'KPI Management', enabled: true },
-      { name: 'Assessments', enabled: true },
-      { name: 'Reports & Analytics', enabled: true },
-      { name: 'AI Management', enabled: true },
-      { name: 'Settings & Security', enabled: true },
-    ],
-    canEdit: true,
-    canDelete: false,
-  },
-  {
-    id: '2',
-    name: 'Manager',
-    type: 'system',
-    userCount: 12,
-    description: 'Team management and evaluation capabilities',
-    permissions: [
-      { name: 'Users & Teams', enabled: true },
-      { name: 'Departments', enabled: true },
-      { name: 'KPI Management', enabled: true },
-      { name: 'Assessments', enabled: true },
-      { name: 'Reports & Analytics', enabled: true },
-      { name: 'AI Management', enabled: true },
-      { name: 'Settings & Security', enabled: true },
-    ],
-    canEdit: true,
-    canDelete: false,
-  },
-  {
-    id: '3',
-    name: 'HR Specialist',
-    type: 'custom',
-    userCount: 4,
-    description: 'Human resources and talent management',
-    permissions: [
-      { name: 'Users & Teams', enabled: true },
-      { name: 'Departments', enabled: true },
-      { name: 'KPI Management', enabled: true },
-      { name: 'Assessments', enabled: true },
-      { name: 'Reports & Analytics', enabled: true },
-      { name: 'AI Management', enabled: true },
-      { name: 'Settings & Security', enabled: true },
-    ],
-    canEdit: true,
-    canDelete: true,
-  },
-  {
-    id: '4',
-    name: 'Team Lead',
-    type: 'custom',
-    userCount: 8,
-    description: 'Lead team evaluations and performance tracking',
-    permissions: [
-      { name: 'Users & Teams', enabled: true },
-      { name: 'Departments', enabled: true },
-      { name: 'KPI Management', enabled: true },
-      { name: 'Assessments', enabled: true },
-      { name: 'Reports & Analytics', enabled: true },
-      { name: 'AI Management', enabled: true },
-      { name: 'Settings & Security', enabled: true },
-    ],
-    canEdit: true,
-    canDelete: true,
-  },
-  {
-    id: '5',
-    name: 'Employee',
-    type: 'system',
-    userCount: 35,
-    description: 'Basic access for regular employees',
-    permissions: [
-      { name: 'Users & Teams', enabled: true },
-      { name: 'Departments', enabled: true },
-      { name: 'KPI Management', enabled: true },
-      { name: 'Assessments', enabled: true },
-      { name: 'Reports & Analytics', enabled: true },
-    ],
-    canEdit: true,
-    canDelete: false,
-  },
-];
+import { RoleFormData } from '../schemas/role.schema';
 
 export function RolesPage() {
-  const roles = defaultRoles;
+  const { roles, addRole, updateRole, deleteRole } = useRolesStore();
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
-  const handleAddRole = () => {
-    console.log('Add role clicked');
-    // Handle add role - open modal or navigate to form
+  // Filter roles based on search query
+  const filteredRoles = roles.filter((role) =>
+    role.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    role.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
   };
 
-  const handleSearch = (query: string) => {
-    console.log('Search query:', query);
-    // Handle search
+  const handleAddClick = () => {
+    setModalMode('add');
+    setSelectedRole(null);
+    setIsModalOpen(true);
   };
 
-  const handleEditRole = (role: Role) => {
-    console.log('Edit role:', role);
-    // Handle edit role
+  const handleEditClick = (role: Role) => {
+    setModalMode('edit');
+    setSelectedRole(role);
+    setIsModalOpen(true);
   };
 
-  const handleDeleteRole = (role: Role) => {
-    console.log('Delete role:', role);
-    // Handle delete role
+  const handleDeleteClick = (role: Role) => {
+    if (role.isSystem) {
+      alert('System roles cannot be deleted');
+      return;
+    }
+    if (window.confirm(`Are you sure you want to delete ${role.name}?`)) {
+      deleteRole(role.id);
+    }
   };
 
-  const totalRoles = roles.length;
-  const systemRoles = roles.filter((r) => r.type === 'system').length;
-  const customRoles = roles.filter((r) => r.type === 'custom').length;
+  const handleSubmit = (data: RoleFormData) => {
+    if (modalMode === 'edit' && selectedRole) {
+      updateRole(selectedRole.id, {
+        name: data.name,
+        description: data.description,
+        permissionIds: data.permissions,
+        status: data.status,
+      });
+    } else {
+      addRole({
+        name: data.name,
+        description: data.description,
+        type: 'custom',
+        userCount: 0,
+        canEdit: true,
+        canDelete: true,
+        permissions: data.permissions.map((permId) => ({ name: permId, enabled: true })),
+        permissionIds: data.permissions,
+        status: data.status || 'active',
+      });
+    }
+    setIsModalOpen(false);
+    setSelectedRole(null);
+  };
+
+  // Calculate stats
+  const totalRoles = filteredRoles.length;
+  const systemRoles = filteredRoles.filter((r) => r.type === 'system').length;
+  const customRoles = filteredRoles.filter((r) => r.type === 'custom').length;
 
   return (
     <div className="min-h-screen p-6 lg:p-8">
@@ -132,36 +87,63 @@ export function RolesPage() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <h1 className="text-white text-3xl mb-2">Roles & Permissions</h1>
-            <p className="text-[#B0B6C1]">Manage user roles and access permissions</p>
+            <p className="text-[#B0B6C1]">
+              Manage user roles and access control
+            </p>
           </div>
           <button
-            data-slot="button"
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
-            onClick={handleAddRole}
+            onClick={handleAddClick}
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
           >
-            <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
-            Add Role
+            <Plus className="w-4 h-4" aria-hidden="true" />
+            Create Role
           </button>
         </div>
 
         {/* Stats */}
-        <RoleStats totalRoles={totalRoles} systemRoles={systemRoles} customRoles={customRoles} />
+        <RoleStats 
+          totalRoles={totalRoles}
+          systemRoles={systemRoles}
+          customRoles={customRoles}
+        />
 
         {/* Search Bar */}
         <RoleSearchBar onSearch={handleSearch} />
 
-        {/* Role Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {roles.map((role) => (
+        {/* Roles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredRoles.map((role) => (
             <RoleCard
               key={role.id}
               role={role}
-              onEdit={handleEditRole}
-              onDelete={handleDeleteRole}
+              onEdit={handleEditClick}
+              onDelete={handleDeleteClick}
             />
           ))}
         </div>
+
+        {/* Empty State */}
+        {filteredRoles.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-white text-lg font-semibold mb-2">No roles found</div>
+            <p className="text-[#B0B6C1]">
+              {searchQuery
+                ? 'Try adjusting your search'
+                : 'Get started by creating your first role'}
+            </p>
+          </div>
+        )}
       </div>
+
+      {/* Role Modal */}
+      <RoleModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
+        role={selectedRole}
+        mode={modalMode}
+      />
     </div>
   );
 }
+
