@@ -34,65 +34,52 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen p-6 lg:p-8">
-      <div className="space-y-6">
-        {/* Header (Search removed; start with Dashboard heading) */}
+      <div className="max-w-[1600px] mx-auto space-y-8">
+        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
-            <h1 className="text-white text-3xl lg:text-4xl font-bold mb-2">Dashboard</h1>
+            <h1 className="text-white text-3xl mb-2">Dashboard</h1>
+            <p className="text-[#B0B6C1]">Welcome back! Here's what's happening with your organization.</p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => refetch()}
-              disabled={isLoading}
-              className="inline-flex items-center justify-center gap-2 px-4 h-10 border border-white/10 text-white hover:bg-white/5 rounded-lg transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-              Refresh
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 px-4 h-10 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 rounded-lg transition-all text-sm font-semibold">
-              <Download className="w-4 h-4" />
-              Export
-            </button>
-          </div>
+          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+            <Zap className="w-4 h-4 mr-2" />
+            Quick Start AI Setup
+          </button>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatsCard
-            title={STAT_LABELS.TOTAL_USERS}
-            value={isLoading ? '...' : formatNumber(stats?.totalUsers || 0)}
-            change={12.5}
-            changeType="increase"
+            title="Active Users"
+            value="1,284"
+            change="↑ 12% from last month"
             icon={Users}
             iconColor="bg-gradient-to-br from-[#00F5C6] to-[#00AEEF]"
             trend="up"
           />
           
           <StatsCard
-            title={STAT_LABELS.TOTAL_EVALUATIONS}
-            value={isLoading ? '...' : formatNumber(stats?.totalEvaluations || 0)}
-            change={8.2}
-            changeType="increase"
+            title="Avg Skill Score"
+            value="78.5"
+            change="↑ 5.2 points"
+            icon={TrendingUp}
+            iconColor="bg-gradient-to-br from-[#00F5C6] to-[#00AEEF]"
+            trend="up"
+          />
+          
+          <StatsCard
+            title="Engagement Rate"
+            value="85%"
+            change="↑ 3% from last week"
             icon={Activity}
             iconColor="bg-gradient-to-br from-[#00F5C6] to-[#00AEEF]"
             trend="up"
           />
           
           <StatsCard
-            title={STAT_LABELS.ACTIVE_MODELS}
-            value={isLoading ? '...' : stats?.activeModels || 0}
-            change={2.4}
-            changeType="decrease"
-            icon={Brain}
-            iconColor="bg-gradient-to-br from-[#00F5C6] to-[#00AEEF]"
-            trend="down"
-          />
-          
-          <StatsCard
-            title={STAT_LABELS.AVERAGE_ACCURACY}
-            value={isLoading ? '...' : formatPercentage(stats?.averageAccuracy || 0)}
-            change={3.1}
-            changeType="increase"
+            title="Token Usage"
+            value="75K"
+            change="↑ 25K remaining"
             icon={Zap}
             iconColor="bg-gradient-to-br from-[#00F5C6] to-[#00AEEF]"
             trend="up"

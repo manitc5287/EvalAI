@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 export interface StatsCardProps {
   title: string;
   value: string | number;
-  change?: number;
+  change?: number | string;
   changeType?: 'increase' | 'decrease';
   icon: LucideIcon;
   iconColor: string;
@@ -27,6 +27,13 @@ export const StatsCard: FC<StatsCardProps> = ({
   const arrow = isPositive ? '↑' : '↓';
   const changeTextColor = isPositive ? '#00F5C6' : '#d4183d';
 
+  // Format change text
+  const changeText = typeof change === 'string' 
+    ? change 
+    : change !== undefined 
+      ? `${arrow} ${Math.round(Math.abs(change))}% from last month`
+      : '';
+
   return (
     <div className="relative group">
       {/* Hover glow */}
@@ -37,9 +44,9 @@ export const StatsCard: FC<StatsCardProps> = ({
           <div className="flex-1 min-w-0">
             <p className="text-[#B0B6C1] text-sm mb-2 truncate">{title}</p>
             <p className="text-white text-3xl mb-1 truncate">{value}</p>
-            {change !== undefined && (
-              <p className="text-sm" style={{ color: changeTextColor }}>
-                {arrow} {Math.round(Math.abs(change))}% from last month
+            {changeText && (
+              <p className="text-sm text-[#00F5C6]">
+                {changeText}
               </p>
             )}
           </div>
