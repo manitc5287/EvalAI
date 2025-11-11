@@ -14,6 +14,38 @@ export default function BillingPage() {
     { date: '2024-11-06', evaluations: '1,400', coaching: '850', analytics: '420', total: '2,670' },
   ];
 
+  const billingHistory = [
+    { date: '2024-11-01', description: 'Pro Plan - Monthly', amount: '$299', status: 'paid' },
+    { date: '2024-10-01', description: 'Pro Plan - Monthly', amount: '$299', status: 'paid' },
+    { date: '2024-09-01', description: 'Pro Plan - Monthly', amount: '$299', status: 'paid' },
+    { date: '2024-08-01', description: 'Starter Plan - Monthly', amount: '$99', status: 'paid' },
+  ];
+
+  const plans = [
+    {
+      name: 'Starter',
+      price: '$99',
+      tokens: '10,000 tokens/month',
+      features: ['Up to 50 users', 'Basic AI evaluations', 'Standard reports', 'Email support'],
+      isCurrent: false,
+    },
+    {
+      name: 'Professional',
+      price: '$299',
+      tokens: '50,000 tokens/month',
+      features: ['Up to 200 users', 'Advanced AI features', 'Custom reports', 'Priority support', 'API access'],
+      isCurrent: true,
+      isPopular: true,
+    },
+    {
+      name: 'Enterprise',
+      price: '$999',
+      tokens: '200,000 tokens/month',
+      features: ['Unlimited users', 'Custom AI models', 'White-label options', 'Dedicated support', 'Advanced API', 'SLA guarantee'],
+      isCurrent: false,
+    },
+  ];
+
   return (
     <div className="min-h-screen p-6 lg:p-8">
       <div className="max-w-[1600px] mx-auto space-y-6">
@@ -208,15 +240,90 @@ export default function BillingPage() {
 
           {/* Billing History Tab */}
           {activeTab === 'billing' && (
-            <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10">
-              <p className="text-[#B0B6C1] text-center py-8">Billing history content coming soon...</p>
+            <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-white">Billing History</h3>
+                <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+                  <Download className="w-4 h-4" />
+                  Download All
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full caption-bottom text-sm">
+                  <thead className="[&_tr]:border-b">
+                    <tr className="hover:bg-muted/50 border-b transition-colors border-white/10">
+                      <th className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-[#B0B6C1]">Date</th>
+                      <th className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-[#B0B6C1]">Description</th>
+                      <th className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-[#B0B6C1]">Amount</th>
+                      <th className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-[#B0B6C1]">Status</th>
+                      <th className="h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-[#B0B6C1]">Invoice</th>
+                    </tr>
+                  </thead>
+                  <tbody className="[&_tr:last-child]:border-0">
+                    {billingHistory.map((row, index) => (
+                      <tr key={index} className="hover:bg-muted/50 border-b transition-colors border-white/10">
+                        <td className="p-2 align-middle whitespace-nowrap text-white">{row.date}</td>
+                        <td className="p-2 align-middle whitespace-nowrap text-white">{row.description}</td>
+                        <td className="p-2 align-middle whitespace-nowrap text-white">{row.amount}</td>
+                        <td className="p-2 align-middle whitespace-nowrap">
+                          <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap bg-green-500/20 text-green-400 border-green-500/30">
+                            {row.status}
+                          </span>
+                        </td>
+                        <td className="p-2 align-middle whitespace-nowrap">
+                          <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 text-[#00F5C6] hover:text-[#00F5C6] hover:bg-white/5">
+                            <Download className="w-4 h-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 
           {/* Plans & Pricing Tab */}
           {activeTab === 'plans' && (
-            <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10">
-              <p className="text-[#B0B6C1] text-center py-8">Plans & pricing content coming soon...</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {plans.map((plan, index) => (
+                <div
+                  key={index}
+                  className={`relative group p-6 ${plan.isPopular ? 'ring-2 ring-[#00F5C6] shadow-lg shadow-[#00F5C6]/20' : ''}`}
+                >
+                  <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all p-6">
+                    {plan.isPopular && (
+                      <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap mb-4 border-transparent bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]">
+                        Most Popular
+                      </span>
+                    )}
+                    <h3 className="text-white text-xl mb-2">{plan.name}</h3>
+                    <div className="flex items-baseline gap-2 mb-4">
+                      <span className="text-white text-4xl">{plan.price}</span>
+                      <span className="text-[#B0B6C1]">/month</span>
+                    </div>
+                    <p className="text-[#B0B6C1] text-sm mb-4">{plan.tokens}</p>
+                    <div className="space-y-3 mb-6">
+                      {plan.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2 text-sm">
+                          <Check className="w-4 h-4 text-[#00F5C6]" />
+                          <span className="text-[#B0B6C1]">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 w-full ${
+                        plan.isCurrent
+                          ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90'
+                          : 'border border-white/10 text-white hover:bg-white/5'
+                      }`}
+                    >
+                      {plan.isCurrent ? 'Current Plan' : 'Upgrade'}
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>

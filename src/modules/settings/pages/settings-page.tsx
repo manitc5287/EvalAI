@@ -21,10 +21,10 @@ export default function SettingsPage() {
           <div className="h-9 w-fit items-center justify-center rounded-xl p-[3px] flex bg-white/5 overflow-x-auto">
             <button
               onClick={() => setActiveTab('general')}
-              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === 'general'
-                  ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]'
-                  : 'text-white hover:bg-white/5'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
               }`}
             >
               <Settings className="w-4 h-4" />
@@ -32,10 +32,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => setActiveTab('appearance')}
-              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === 'appearance'
-                  ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]'
-                  : 'text-white hover:bg-white/5'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
               }`}
             >
               <Palette className="w-4 h-4" />
@@ -43,10 +43,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => setActiveTab('integrations')}
-              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === 'integrations'
-                  ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]'
-                  : 'text-white hover:bg-white/5'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
               }`}
             >
               <Plug className="w-4 h-4" />
@@ -54,10 +54,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => setActiveTab('accessibility')}
-              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === 'accessibility'
-                  ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]'
-                  : 'text-white hover:bg-white/5'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
               }`}
             >
               <Accessibility className="w-4 h-4" />
@@ -65,10 +65,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => setActiveTab('beta')}
-              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
                 activeTab === 'beta'
-                  ? 'bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C]'
-                  : 'text-white hover:bg-white/5'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
               }`}
             >
               <Zap className="w-4 h-4" />
