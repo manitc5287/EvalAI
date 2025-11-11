@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Settings, Palette, Plug, Accessibility, Zap, ChevronDown, Building2, Shield, Brain, ClipboardList, Users, Calendar, CircleCheck } from 'lucide-react'
 
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState('general')
+  const [activeTab, setActiveTab] = useState<'general' | 'appearance' | 'integrations' | 'accessibility' | 'beta' | 'organization' | 'assessments'>('general')
+  const [orgSubTab, setOrgSubTab] = useState<'branding' | 'departments' | 'roles' | 'kpi' | 'admins' | 'security' | 'ai'>('branding')
 
   return (
     <div className="min-h-screen p-6 lg:p-8">
@@ -568,259 +569,347 @@ export default function SettingsPage() {
           {/* Organization Setup Tab */}
           {activeTab === 'organization' && (
             <div className="space-y-6">
-              {/* Branding Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <div>
-                      <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Primary Color</label>
-                      <div className="flex gap-3 mt-2">
-                        <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00F5C6" />
-                        <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00F5C6" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Secondary Color</label>
-                      <div className="flex gap-3 mt-2">
-                        <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00AEEF" />
-                        <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00AEEF" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Logo Upload</label>
-                      <div className="mt-2 border-2 border-dashed border-white/10 rounded-lg p-8 text-center hover:border-[#00F5C6]/50 transition-colors cursor-pointer">
-                        <p className="text-[#B0B6C1]">Drop your logo here or click to browse</p>
-                        <p className="text-[#B0B6C1] text-xs mt-2">SVG, PNG, JPG (max 2MB)</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Sub-tabs for Organization Setup */}
+              <div className="flex gap-2 bg-white/5 rounded-xl p-[3px] w-fit overflow-x-auto">
+                <button
+                  onClick={() => setOrgSubTab('branding')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'branding'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  Branding
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('departments')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'departments'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  Departments
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('roles')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'roles'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  Roles & Permissions
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('kpi')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'kpi'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  KPI Packs
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('admins')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'admins'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  Admin Management
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('security')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'security'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  Security Settings
+                </button>
+                <button
+                  onClick={() => setOrgSubTab('ai')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                    orgSubTab === 'ai'
+                      ? 'bg-white/10 border border-white/10 text-white'
+                      : 'border border-transparent text-[#B0B6C1] hover:text-white'
+                  }`}
+                >
+                  AI Configuration
+                </button>
               </div>
 
-              {/* Department Structure Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-[#B0B6C1]">Define your organizational structure</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
-                        <Brain className="w-4 h-4" />
-                        AI Auto-Suggest
-                      </button>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
-                          <span className="text-white">Engineering</span>
+              {/* Branding Tab Content */}
+              {orgSubTab === 'branding' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <div>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Primary Color</label>
+                        <div className="flex gap-3 mt-2">
+                          <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00F5C6" />
+                          <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00F5C6" />
                         </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
-                          <span className="text-white">Sales</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
-                          <span className="text-white">Support</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
-                          <span className="text-white">HR</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Building2 className="w-5 h-5 text-[#00F5C6]" />
-                          <span className="text-white">Product</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
-                      </div>
-                    </div>
-                    <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
-                      + Add Department
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Roles & Permissions Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-[#B0B6C1]">Configure roles and permissions</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
-                        <Brain className="w-4 h-4" />
-                        AI Auto-Configure
-                      </button>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Shield className="w-5 h-5 text-[#00AEEF]" />
-                          <span className="text-white">Admin</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Shield className="w-5 h-5 text-[#00AEEF]" />
-                          <span className="text-white">Manager</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Shield className="w-5 h-5 text-[#00AEEF]" />
-                          <span className="text-white">Team Lead</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Shield className="w-5 h-5 text-[#00AEEF]" />
-                          <span className="text-white">Employee</span>
-                        </div>
-                        <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* KPI Packs Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-[#B0B6C1]">Select KPI packs for your teams</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
-                        <Brain className="w-4 h-4" />
-                        AI Recommendations
-                      </button>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
-                        <p className="text-white mb-1">IT Support Pack</p>
-                        <p className="text-[#B0B6C1] text-sm">8 KPIs</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
-                        <p className="text-white mb-1">Sales Pack</p>
-                        <p className="text-[#B0B6C1] text-sm">10 KPIs</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
-                        <p className="text-white mb-1">HR Pack</p>
-                        <p className="text-[#B0B6C1] text-sm">12 KPIs</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
-                        <p className="text-white mb-1">Engineering Pack</p>
-                        <p className="text-[#B0B6C1] text-sm">14 KPIs</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Admin Management Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <p className="text-[#B0B6C1]">Add administrators to your organization</p>
-                    <div>
-                      <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Admin Email</label>
-                      <input type="email" className="mt-2 h-9 w-full px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" placeholder="admin@company.com" />
-                    </div>
-                    <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
-                      + Add Another Admin
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Security Settings Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <p className="text-[#B0B6C1]">Configure security and authentication settings</p>
-                    <div className="space-y-4">
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">Enable SSO</span>
-                          <input type="checkbox" className="w-5 h-5" />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">Single Sign-On via SAML 2.0</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">Require 2FA</span>
-                          <input type="checkbox" className="w-5 h-5" defaultChecked />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">Two-factor authentication for all users</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">IP Allowlist</span>
-                          <input type="checkbox" className="w-5 h-5" />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">Restrict access to specific IP ranges</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* AI Configuration Card */}
-              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                <div className="p-8">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00F5C6] to-[#00AEEF] flex items-center justify-center">
-                        <Brain className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-white text-lg">AI Configuration</h3>
-                        <p className="text-[#B0B6C1] text-sm">Set up AI models and features</p>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Secondary Color</label>
+                        <div className="flex gap-3 mt-2">
+                          <input type="color" className="w-20 h-12 rounded-md border bg-white/5 border-white/10" value="#00AEEF" />
+                          <input className="flex-1 h-9 px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" value="#00AEEF" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Logo Upload</label>
+                        <div className="mt-2 border-2 border-dashed border-white/10 rounded-lg p-8 text-center hover:border-[#00F5C6]/50 transition-colors cursor-pointer">
+                          <p className="text-[#B0B6C1]">Drop your logo here or click to browse</p>
+                          <p className="text-[#B0B6C1] text-xs mt-2">SVG, PNG, JPG (max 2MB)</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="space-y-4">
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">AI Performance Reviews</span>
-                          <input type="checkbox" className="w-5 h-5" defaultChecked />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">Automated performance analysis</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">AI Coaching Assistant</span>
-                          <input type="checkbox" className="w-5 h-5" defaultChecked />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">Personalized coaching recommendations</p>
-                      </div>
-                      <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white">Skill Gap Analysis</span>
-                          <input type="checkbox" className="w-5 h-5" defaultChecked />
-                        </div>
-                        <p className="text-[#B0B6C1] text-sm">AI-powered skill assessments</p>
-                      </div>
-                    </div>
-                    <button className="w-full h-9 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                      <Brain className="w-4 h-4" />
-                      Run AI Auto-Setup
-                    </button>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {/* Departments Tab Content */}
+              {orgSubTab === 'departments' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <p className="text-[#B0B6C1]">Define your organizational structure</p>
+                        <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                          <Brain className="w-4 h-4" />
+                          AI Auto-Suggest
+                        </button>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                            <span className="text-white">Engineering</span>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                            <span className="text-white">Sales</span>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                            <span className="text-white">Support</span>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                            <span className="text-white">HR</span>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Building2 className="w-5 h-5 text-[#00F5C6]" />
+                            <span className="text-white">Product</span>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
+                        </div>
+                      </div>
+                      <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                        + Add Department
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Roles & Permissions Tab Content */}
+              {orgSubTab === 'roles' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <p className="text-[#B0B6C1]">Set up roles and their permissions</p>
+                        <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                          <Brain className="w-4 h-4" />
+                          AI Auto-Configure
+                        </button>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div>
+                            <div className="text-white font-medium">Admin</div>
+                            <div className="text-[#B0B6C1] text-sm">Full system access</div>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div>
+                            <div className="text-white font-medium">Manager</div>
+                            <div className="text-[#B0B6C1] text-sm">Team management & reporting</div>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div>
+                            <div className="text-white font-medium">Team Lead</div>
+                            <div className="text-[#B0B6C1] text-sm">Lead evaluations & assessments</div>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                          <div>
+                            <div className="text-white font-medium">Employee</div>
+                            <div className="text-[#B0B6C1] text-sm">Basic access</div>
+                          </div>
+                          <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* KPI Packs Tab Content */}
+              {orgSubTab === 'kpi' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <p className="text-[#B0B6C1]">Select KPI packs for your teams</p>
+                        <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                          <Brain className="w-4 h-4" />
+                          AI Recommendations
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
+                          <p className="text-white mb-1">IT Support Pack</p>
+                          <p className="text-[#B0B6C1] text-sm">8 KPIs</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
+                          <p className="text-white mb-1">Sales Pack</p>
+                          <p className="text-[#B0B6C1] text-sm">10 KPIs</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
+                          <p className="text-white mb-1">HR Pack</p>
+                          <p className="text-[#B0B6C1] text-sm">12 KPIs</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10 hover:border-[#00F5C6]/50 cursor-pointer transition-colors">
+                          <p className="text-white mb-1">Engineering Pack</p>
+                          <p className="text-[#B0B6C1] text-sm">14 KPIs</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Admin Management Tab Content */}
+              {orgSubTab === 'admins' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <p className="text-[#B0B6C1]">Add administrators to your organization</p>
+                      <div>
+                        <label className="flex items-center gap-2 text-sm leading-none font-medium text-white">Admin Email</label>
+                        <input type="email" className="mt-2 h-9 w-full px-3 py-1 rounded-md border bg-white/5 border-white/10 text-white" placeholder="admin@company.com" />
+                      </div>
+                      <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                        + Add Another Admin
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Security Settings Tab Content */}
+              {orgSubTab === 'security' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <p className="text-[#B0B6C1]">Configure security and authentication settings</p>
+                      <div className="space-y-4">
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">Enable SSO</span>
+                            <input type="checkbox" className="w-5 h-5" />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Single Sign-On via SAML 2.0</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">Require 2FA</span>
+                            <input type="checkbox" className="w-5 h-5" defaultChecked />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Two-factor authentication for all users</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">IP Allowlist</span>
+                            <input type="checkbox" className="w-5 h-5" />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Restrict access to specific IP ranges</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* AI Configuration Tab Content */}
+              {orgSubTab === 'ai' && (
+                <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                  <div className="p-8">
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00F5C6] to-[#00AEEF] flex items-center justify-center">
+                          <Brain className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-white text-lg">AI Configuration</h3>
+                          <p className="text-[#B0B6C1] text-sm">Set up AI models and features</p>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">AI Performance Reviews</span>
+                            <input type="checkbox" className="w-5 h-5" defaultChecked />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Automated performance analysis</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">AI Coaching Assistant</span>
+                            <input type="checkbox" className="w-5 h-5" defaultChecked />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Personalized coaching recommendations</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-white">Skill Gap Analysis</span>
+                            <input type="checkbox" className="w-5 h-5" defaultChecked />
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">AI-powered skill assessments</p>
+                        </div>
+                      </div>
+                      <button className="w-full h-9 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                        <Brain className="w-4 h-4" />
+                        Run AI Auto-Setup
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
