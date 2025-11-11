@@ -1,2 +1,1 @@
-export { default } from '@/modules/dashboard/pages/dashboard-page';
-export { metadata } from '@/modules/dashboard/pages/dashboard-page';
+export { default } from '@/src/modules/dashboard/pages/dashboard-page';
