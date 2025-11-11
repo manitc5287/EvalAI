@@ -737,7 +737,7 @@ export default function SettingsPage() {
                   <div className="p-8">
                     <div className="space-y-6">
                       <div className="flex items-center justify-between mb-4">
-                        <p className="text-[#B0B6C1]">Set up roles and their permissions</p>
+                        <p className="text-[#B0B6C1]">Configure roles and permissions</p>
                         <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
                           <Brain className="w-4 h-4" />
                           AI Auto-Configure
@@ -745,30 +745,30 @@ export default function SettingsPage() {
                       </div>
                       <div className="space-y-3">
                         <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <div className="text-white font-medium">Admin</div>
-                            <div className="text-[#B0B6C1] text-sm">Full system access</div>
+                          <div className="flex items-center gap-3">
+                            <Shield className="w-5 h-5 text-[#00AEEF]" />
+                            <span className="text-white">Admin</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
                         </div>
                         <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <div className="text-white font-medium">Manager</div>
-                            <div className="text-[#B0B6C1] text-sm">Team management & reporting</div>
+                          <div className="flex items-center gap-3">
+                            <Shield className="w-5 h-5 text-[#00AEEF]" />
+                            <span className="text-white">Manager</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
                         </div>
                         <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <div className="text-white font-medium">Team Lead</div>
-                            <div className="text-[#B0B6C1] text-sm">Lead evaluations & assessments</div>
+                          <div className="flex items-center gap-3">
+                            <Shield className="w-5 h-5 text-[#00AEEF]" />
+                            <span className="text-white">Team Lead</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
                         </div>
                         <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <div className="text-white font-medium">Employee</div>
-                            <div className="text-[#B0B6C1] text-sm">Basic access</div>
+                          <div className="flex items-center gap-3">
+                            <Shield className="w-5 h-5 text-[#00AEEF]" />
+                            <span className="text-white">Employee</span>
                           </div>
                           <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Configure</button>
                         </div>
