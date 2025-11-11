@@ -307,8 +307,64 @@ export default function SettingsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
                   <div className="p-6">
-                    <h3 className="text-white text-lg mb-4">Integration Settings</h3>
-                    <p className="text-[#B0B6C1]">Manage your third-party integrations and API connections here.</p>
+                    <h3 className="text-white text-lg mb-6">Connected Services</h3>
+                    <div className="space-y-4">
+                      {/* Slack */}
+                      <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">💬</span>
+                          <div>
+                            <p className="text-white">Slack</p>
+                            <p className="text-sm text-[#00F5C6]">Connected</p>
+                          </div>
+                        </div>
+                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 border border-white/10 text-white hover:bg-white/5">
+                          Disconnect
+                        </button>
+                      </div>
+
+                      {/* Microsoft Teams */}
+                      <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">👥</span>
+                          <div>
+                            <p className="text-white">Microsoft Teams</p>
+                            <p className="text-sm text-[#B0B6C1]">Not Connected</p>
+                          </div>
+                        </div>
+                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                          Connect
+                        </button>
+                      </div>
+
+                      {/* Jira */}
+                      <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">📋</span>
+                          <div>
+                            <p className="text-white">Jira</p>
+                            <p className="text-sm text-[#00F5C6]">Connected</p>
+                          </div>
+                        </div>
+                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 border border-white/10 text-white hover:bg-white/5">
+                          Disconnect
+                        </button>
+                      </div>
+
+                      {/* Salesforce */}
+                      <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">☁️</span>
+                          <div>
+                            <p className="text-white">Salesforce</p>
+                            <p className="text-sm text-[#B0B6C1]">Not Connected</p>
+                          </div>
+                        </div>
+                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                          Connect
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -321,9 +377,73 @@ export default function SettingsPage() {
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                  <div className="p-6">
-                    <h3 className="text-white text-lg mb-4">Accessibility Options</h3>
-                    <p className="text-[#B0B6C1]">Configure accessibility features to improve your experience.</p>
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-white text-lg">Accessibility Options</h3>
+                    <div className="space-y-4">
+                      {/* High Contrast Mode */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-white">High Contrast Mode</p>
+                          <p className="text-[#B0B6C1] text-sm">Increase contrast for better visibility</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+
+                      {/* Reduced Motion */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-white">Reduced Motion</p>
+                          <p className="text-[#B0B6C1] text-sm">Minimize animations and transitions</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+
+                      {/* Screen Reader Optimization */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-white">Screen Reader Optimization</p>
+                          <p className="text-[#B0B6C1] text-sm">Enhanced labels and descriptions</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="true"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-[calc(100%-2px)]"></span>
+                        </button>
+                      </div>
+
+                      {/* Keyboard Navigation */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-white">Keyboard Navigation</p>
+                          <p className="text-[#B0B6C1] text-sm">Enhanced keyboard shortcuts</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="true"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-[calc(100%-2px)]"></span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -336,9 +456,87 @@ export default function SettingsPage() {
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00F5C6]/20 to-[#00AEEF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
-                  <div className="p-6">
-                    <h3 className="text-white text-lg mb-4">Beta Features</h3>
-                    <p className="text-[#B0B6C1]">Try out experimental features before they're released to everyone.</p>
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-white text-lg">Experimental Features</h3>
+                    <div className="space-y-4">
+                      {/* AI Simulation & Role-Play */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-white">AI Simulation & Role-Play</p>
+                            <span className="px-2 py-0.5 rounded bg-[#00F5C6]/20 text-[#00F5C6] text-xs">Beta</span>
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Interactive AI coaching scenarios</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+
+                      {/* Predictive Analytics */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-white">Predictive Analytics</p>
+                            <span className="px-2 py-0.5 rounded bg-[#00F5C6]/20 text-[#00F5C6] text-xs">Beta</span>
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">AI-powered performance forecasting</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+
+                      {/* AI Course Generator */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-white">AI Course Generator</p>
+                            <span className="px-2 py-0.5 rounded bg-yellow-400/20 text-yellow-400 text-xs">Coming Soon</span>
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Automatically generate training courses</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          disabled
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20 opacity-50 cursor-not-allowed"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+
+                      {/* VR/AR Training */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-white">VR/AR Training</p>
+                            <span className="px-2 py-0.5 rounded bg-yellow-400/20 text-yellow-400 text-xs">Coming Soon</span>
+                          </div>
+                          <p className="text-[#B0B6C1] text-sm">Immersive learning experiences</p>
+                        </div>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked="false"
+                          disabled
+                          className="peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none bg-white/20 opacity-50 cursor-not-allowed"
+                        >
+                          <span className="pointer-events-none block size-4 rounded-full bg-white ring-0 transition-transform translate-x-0"></span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
