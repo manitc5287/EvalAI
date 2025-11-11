@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Settings, Palette, Plug, Accessibility, Zap, ChevronDown, Building2, Shield, Brain } from 'lucide-react'
+import { Settings, Palette, Plug, Accessibility, Zap, ChevronDown, Building2, Shield, Brain, ClipboardList, Users, Calendar, CircleCheck } from 'lucide-react'
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('general')
@@ -84,6 +84,17 @@ export default function SettingsPage() {
             >
               <Building2 className="w-4 h-4" />
               Organization Setup
+            </button>
+            <button
+              onClick={() => setActiveTab('assessments')}
+              className={`inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-1 text-sm font-medium whitespace-nowrap transition-all ${
+                activeTab === 'assessments'
+                  ? 'bg-white/10 border-white/10 text-white'
+                  : 'border-transparent text-[#B0B6C1] hover:bg-white/5'
+              }`}
+            >
+              <ClipboardList className="w-4 h-4" />
+              Assessments
             </button>
           </div>
 
@@ -806,6 +817,75 @@ export default function SettingsPage() {
                     <button className="w-full h-9 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all flex items-center justify-center gap-2">
                       <Brain className="w-4 h-4" />
                       Run AI Auto-Setup
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Assessments Tab */}
+          {activeTab === 'assessments' && (
+            <div className="space-y-6">
+              {/* Scheduled Assessment Card */}
+              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                <div className="p-6">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-white text-lg">Mid-Year Skills Assessment</h3>
+                        <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-yellow-400/50 text-yellow-400">
+                          scheduled
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-4 text-sm text-[#B0B6C1]">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4" />
+                          <span>200 participants</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>Starts 2024-07-15</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                        Edit
+                      </button>
+                      <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
+                        Start Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Completed Assessment Card */}
+              <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+                <div className="p-6">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-white text-lg">Q2 2024 Performance Review</h3>
+                        <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/50 text-[#00F5C6]">
+                          <CircleCheck className="w-3 h-3 mr-1" />
+                          completed
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-4 text-sm text-[#B0B6C1]">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4" />
+                          <span>118 participants</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>Completed 2024-06-30</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                      View Report
                     </button>
                   </div>
                 </div>
