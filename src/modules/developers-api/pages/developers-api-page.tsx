@@ -14,7 +14,7 @@ export default function DevelopersApiPage() {
       id: 1,
       name: 'Production API',
       key: 'sk_live_••••••••••••••••••••••••••',
-      permissions: ['read', 'write'],
+      permissions: 'read-write',
       created: '2024-01-15',
       lastUsed: '2024-11-10'
     },
@@ -22,7 +22,7 @@ export default function DevelopersApiPage() {
       id: 2,
       name: 'Development API',
       key: 'sk_test_••••••••••••••••••••••••••',
-      permissions: ['read'],
+      permissions: 'read-only',
       created: '2024-03-20',
       lastUsed: '2024-11-09'
     }
@@ -193,14 +193,11 @@ export default function DevelopersApiPage() {
                       <div>
                         <h4 className="text-white mb-1">{apiKey.name}</h4>
                         <div className="flex gap-2">
-                          {apiKey.permissions.map((permission) => (
-                            <span
-                              key={permission}
-                              className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/30 text-[#00F5C6]"
-                            >
-                              {permission}
-                            </span>
-                          ))}
+                          <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/30 text-[#00F5C6]">
+                            {apiKey.permissions === 'read-only' && 'Read Only'}
+                            {apiKey.permissions === 'read-write' && 'Read & Write'}
+                            {apiKey.permissions === 'full-access' && 'Full Access'}
+                          </span>
                         </div>
                       </div>
                       <button className="inline-flex items-center justify-center size-9 rounded-md text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-all">
