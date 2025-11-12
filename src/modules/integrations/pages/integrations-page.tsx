@@ -245,7 +245,7 @@ export default function IntegrationsPage() {
                 integration.connected ? 'ring-2 ring-[#00F5C6]' : ''
               }`}
             >
-              <div className="bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
+              <div className="p-4 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl">

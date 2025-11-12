@@ -7,3 +7,17 @@ export interface BillingInfo {
   nextBillingDate: string;
   amount: number;
 }
+
+export interface TokenPackage {
+  id: string;
+  tokens: number;
+  pricePerToken: number;
+  totalPrice: number;
+  popular?: boolean;
+}
+
+export interface PurchaseTokenInput {
+  packageId: string;
+  tokens: number;
+  amount: number;
+}

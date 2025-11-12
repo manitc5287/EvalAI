@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { Key, Zap, Code, ExternalLink as ExternalLinkIcon, BookOpen, Plus, Eye, Copy, Trash2 } from 'lucide-react';
+import { CreateAPIKeyModal } from '../components/create-api-key-modal';
+import type { CreateAPIKeyInput } from '../types';
 
 export default function DevelopersApiPage() {
   const [activeTab, setActiveTab] = useState('keys');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const apiKeys = [
     {
@@ -53,6 +56,12 @@ export default function DevelopersApiPage() {
     }
   ];
 
+  const handleCreateAPIKey = (data: CreateAPIKeyInput) => {
+    console.log('Creating API key:', data);
+    // TODO: Add API key creation logic here
+    setIsCreateModalOpen(false);
+  };
+
   return (
     <div className="min-h-screen p-6 lg:p-8">
       <div className="max-w-[1600px] mx-auto space-y-6">
@@ -67,7 +76,10 @@ export default function DevelopersApiPage() {
               <BookOpen className="w-4 h-4" />
               Documentation
             </button>
-            <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all"
+            >
               <Plus className="w-4 h-4" />
               Create API Key
             </button>
@@ -351,6 +363,13 @@ const data = await response.json();`}
             </div>
           )}
         </div>
+
+        {/* Create API Key Modal */}
+        <CreateAPIKeyModal
+          open={isCreateModalOpen}
+          onOpenChange={setIsCreateModalOpen}
+          onCreateKey={handleCreateAPIKey}
+        />
       </div>
     </div>
   );
