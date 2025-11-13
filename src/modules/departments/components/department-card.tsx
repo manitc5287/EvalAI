@@ -4,15 +4,9 @@
 
 'use client';
 
-import { Building2, Users, UserCheck, EllipsisVertical, Edit, Trash2 } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Building2, Users, UserCheck } from 'lucide-react';
 import { Department } from '../types';
+import { StatusBadge, ActionsDropdown, createActions } from '@/src/shared/components';
 
 interface DepartmentCardProps {
   department: Department;
@@ -24,13 +18,11 @@ export function DepartmentCard({ department, onEdit, onDelete }: DepartmentCardP
   // Calculate a performance score (you can adjust this logic)
   const performanceScore = Math.min(95, 70 + Math.floor(Math.random() * 20));
 
-  const handleEdit = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleEdit = () => {
     onEdit?.(department);
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleDelete = () => {
     onDelete?.(department);
   };
 
@@ -45,33 +37,16 @@ export function DepartmentCard({ department, onEdit, onDelete }: DepartmentCardP
             </div>
             <div>
               <h3 className="text-white mb-1">{department.name}</h3>
-              <span className="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium border-[#00F5C6]/30 text-[#00F5C6]">
-                {department.status}
-              </span>
+              <StatusBadge status={department.status} />
             </div>
           </div>
           
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all size-9 rounded-md text-[#B0B6C1] hover:text-white hover:bg-accent dark:hover:bg-accent/50"
-                aria-label="More options"
-              >
-                <EllipsisVertical className="w-4 h-4" aria-hidden="true" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={handleEdit} className="cursor-pointer">
-                <Edit className="w-4 h-4 mr-2 text-[#00F5C6]" />
-                <span>Edit Department</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleDelete} className="cursor-pointer text-red-400">
-                <Trash2 className="w-4 h-4 mr-2" />
-                <span>Delete Department</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ActionsDropdown
+            actions={[
+              createActions.edit(handleEdit),
+              createActions.delete(handleDelete),
+            ]}
+          />
         </div>
 
         {/* Description */}

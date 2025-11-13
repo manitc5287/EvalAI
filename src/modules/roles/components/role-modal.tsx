@@ -4,14 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Shield, Plus } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { FormModal } from '@/src/shared/components/form-modal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -115,22 +108,21 @@ export function RoleModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh]">
-        <DialogHeader>
-          <DialogTitle>
-            {isEditMode ? 'Edit Role' : 'Create New Role'}
-          </DialogTitle>
-          <DialogDescription>
-            {isEditMode
-              ? 'Update role information and permissions'
-              : 'Define a custom role with specific permissions'}
-          </DialogDescription>
-        </DialogHeader>
-
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <ScrollArea className="max-h-[calc(90vh-200px)]">
-            <div className="space-y-6 py-4 pr-4">
+    <FormModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={isEditMode ? 'Edit Role' : 'Create New Role'}
+      description={
+        isEditMode
+          ? 'Update role information and permissions'
+          : 'Define a custom role with specific permissions'
+      }
+      width="xl"
+      hideFooter
+    >
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <ScrollArea className="max-h-[calc(90vh-200px)]">
+          <div className="space-y-6 py-4 pr-4">
               {/* Role Name */}
               <div>
                 <Label htmlFor="name">Role Name</Label>
@@ -219,16 +211,21 @@ export function RoleModal({
             </div>
           </ScrollArea>
 
-          <DialogFooter>
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-4">
             <Button
               type="button"
               variant="outline"
               onClick={handleCancel}
               disabled={isSubmitting || isLoading}
+              className="border-white/10 text-white hover:bg-white/5"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting || isLoading}>
+            <Button
+              type="submit"
+              disabled={isSubmitting || isLoading}
+              className="bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
+            >
               {isEditMode ? (
                 <>
                   <Shield className="w-4 h-4 mr-2" />
@@ -241,9 +238,8 @@ export function RoleModal({
                 </>
               )}
             </Button>
-          </DialogFooter>
+          </div>
         </form>
-      </DialogContent>
-    </Dialog>
-  );
-}
+      </FormModal>
+    );
+  }

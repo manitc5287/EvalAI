@@ -1,15 +1,9 @@
 'use client';
 
 import { User, UserStatus } from '../types';
-import { MoreVertical, Eye, Edit, UserX } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Eye, Edit, UserX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { StatusBadge, ActionsDropdown, createActions } from '@/src/shared/components';
 
 interface UserTableProps {
   users?: User[];
@@ -82,19 +76,6 @@ function getInitials(name: string): string {
     .map((n) => n[0])
     .join('')
     .toUpperCase();
-}
-
-function getStatusClasses(status: UserStatus): string {
-  switch (status) {
-    case 'active':
-      return 'border-[#00F5C6]/50 text-[#00F5C6]';
-    case 'pending':
-      return 'border-yellow-400/50 text-yellow-400';
-    case 'inactive':
-      return 'border-red-400/50 text-red-400';
-    default:
-      return 'border-white/50 text-white';
-  }
 }
 
 export function UserTable({ users = mockUsers, onUserClick, onEditClick, onDeactivateClick }: UserTableProps) {
@@ -207,12 +188,7 @@ export function UserTable({ users = mockUsers, onUserClick, onEditClick, onDeact
                       data-slot="table-cell"
                       className="p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                      <span
-                        data-slot="badge"
-                        className={`inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden [a&]:hover:bg-accent [a&]:hover:text-accent-foreground ${getStatusClasses(user.status)}`}
-                      >
-                        {user.status}
-                      </span>
+                      <StatusBadge status={user.status} />
                     </td>
                     <td
                       data-slot="table-cell"
@@ -232,42 +208,17 @@ export function UserTable({ users = mockUsers, onUserClick, onEditClick, onDeact
                       data-slot="table-cell"
                       className="p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-9 w-9 text-[#B0B6C1] hover:text-white"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <MoreVertical className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-48">
-                          <DropdownMenuItem
-                            onClick={(e: React.MouseEvent) => handleViewDetails(user, e)}
-                            className="cursor-pointer"
-                          >
-                            <Eye className="w-4 h-4 mr-2 text-[#00AEEF]" />
-                            View Details
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={(e: React.MouseEvent) => handleEdit(user, e)}
-                            className="cursor-pointer"
-                          >
-                            <Edit className="w-4 h-4 mr-2 text-[#00F5C6]" />
-                            Edit User
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            onClick={(e: React.MouseEvent) => handleDeactivate(user, e)}
-                            className="cursor-pointer text-red-400 focus:text-red-400"
-                          >
-                            <UserX className="w-4 h-4 mr-2" />
-                            Deactivate
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                      <ActionsDropdown
+                        actions={[
+                          createActions.custom('View Details', () => handleViewDetails(user, {} as React.MouseEvent), { icon: Eye }),
+                          createActions.edit(() => handleEdit(user, {} as React.MouseEvent)),
+                          createActions.custom('Deactivate', () => handleDeactivate(user, {} as React.MouseEvent), { 
+                            icon: UserX, 
+                            variant: 'destructive', 
+                            separator: true 
+                          }),
+                        ]}
+                      />
                     </td>
                   </tr>
                 ))}

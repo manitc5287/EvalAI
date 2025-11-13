@@ -4,14 +4,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Building, Plus } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { FormModal } from '@/src/shared/components/form-modal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -108,20 +101,19 @@ export function DepartmentModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>
-            {isEditMode ? 'Edit Department' : 'Add New Department'}
-          </DialogTitle>
-          <DialogDescription>
-            {isEditMode
-              ? 'Update department information and settings'
-              : 'Create a new department in your organization'}
-          </DialogDescription>
-        </DialogHeader>
-
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-4">
+    <FormModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={isEditMode ? 'Edit Department' : 'Add New Department'}
+      description={
+        isEditMode
+          ? 'Update department information'
+          : 'Create a new department in your organization'
+      }
+      width="xl"
+      hideFooter
+    >
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-4">
           {/* Department Name */}
           <div>
             <Label htmlFor="name">Department Name</Label>
@@ -202,16 +194,21 @@ export function DepartmentModal({
             </div>
           )}
 
-          <DialogFooter>
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-4">
             <Button
               type="button"
               variant="outline"
               onClick={handleCancel}
               disabled={isSubmitting || isLoading}
+              className="border-white/10 text-white hover:bg-white/5"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting || isLoading}>
+            <Button
+              type="submit"
+              disabled={isSubmitting || isLoading}
+              className="bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90"
+            >
               {isEditMode ? (
                 <>
                   <Building className="w-4 h-4 mr-2" />
@@ -224,9 +221,8 @@ export function DepartmentModal({
                 </>
               )}
             </Button>
-          </DialogFooter>
+          </div>
         </form>
-      </DialogContent>
-    </Dialog>
-  );
-}
+      </FormModal>
+    );
+  }
