@@ -1,0 +1,74 @@
+/**
+ * Color System - CSS Variables
+ * Auto-generated from src/lib/colors.ts
+ * 
+ * Usage:
+ *   background: var(--primary-cyan);
+ *   color: var(--text-secondary);
+ *   border-color: var(--border-default);
+ */
+
+:root {
+  /* PRIMARY COLORS */
+  --primary-cyan: #00F5C6;
+  --primary-blue: #00AEEF;
+  --primary-dark-blue: #0066CC;
+
+  /* BACKGROUND COLORS */
+  --bg-dark: #0A0F1C;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-overlay-5: rgba(255, 255, 255, 0.05);
+  --bg-overlay-10: rgba(255, 255, 255, 0.1);
+  --bg-overlay-20: rgba(255, 255, 255, 0.2);
+
+  /* TEXT COLORS */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B6C1;
+  --text-muted: #7A7F89;
+  --text-placeholder: #6B7280;
+
+  /* BORDER COLORS */
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(0, 245, 198, 0.3);
+  --border-focus: rgba(0, 174, 239, 0.5);
+
+  /* STATUS COLORS */
+  --status-success: #10B981;
+  --status-error: #EF4444;
+  --status-warning: #F59E0B;
+  --status-info: #00AEEF;
+  --status-active: #00F5C6;
+  --status-inactive: #6B7280;
+
+  /* GRADIENTS */
+  --gradient-primary: linear-gradient(to right, #00F5C6, #00AEEF);
+  --gradient-primary-br: linear-gradient(to bottom right, #00F5C6, #00AEEF);
+  --gradient-primary-20: linear-gradient(to bottom right, rgba(0, 245, 198, 0.2), rgba(0, 174, 239, 0.2));
+
+  /* OPACITY */
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-30: 0.3;
+  --opacity-50: 0.5;
+  --opacity-75: 0.75;
+}
+
+/* Dark theme (default) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B6C1;
+    --bg-dark: #0A0F1C;
+  }
+}
+
+/* Light theme (if needed in future) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --text-primary: #000000;
+    --text-secondary: #4B5563;
+    --bg-dark: #FFFFFF;
+  }
+}

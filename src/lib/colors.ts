@@ -258,3 +258,36 @@ export const cssVariables = `
 }
 `;
 
+/**
+ * Helper function to get CSS variable value at runtime
+ * Used for Recharts and other libraries that need actual color values
+ * 
+ * @example
+ * const primaryCyan = getCSSVariable('--primary-cyan'); // Returns #00F5C6
+ * const textSecondary = getCSSVariable('--text-secondary'); // Returns #B0B6C1
+ */
+export function getCSSVariable(variableName: string): string {
+  if (typeof window === 'undefined') {
+    // Server-side fallback to color constants
+    const varMap: Record<string, string> = {
+      '--primary-cyan': PRIMARY.cyan,
+      '--primary-blue': PRIMARY.blue,
+      '--text-secondary': TEXT.secondary,
+      '--text-primary': TEXT.primary,
+      '--bg-dark': BACKGROUND.dark,
+      '--border-default': BORDER.default,
+      '--status-success': STATUS.success,
+      '--status-error': STATUS.error,
+      '--status-warning': STATUS.warning,
+      '--status-info': STATUS.info,
+    };
+    return varMap[variableName] || '#FFFFFF';
+  }
+
+  // Client-side: get actual CSS variable from :root
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(variableName)
+    .trim();
+  
+  return value || '#FFFFFF';
+}
