@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Shield, CircleCheck, FileCheck, TriangleAlert, Download, Lock, Key, Eye, Clock } from 'lucide-react'
+import { Button } from '@/src/shared/components'
 
 export default function SecurityPage() {
   const [activeTab, setActiveTab] = useState('security')
@@ -89,10 +90,10 @@ export default function SecurityPage() {
             <h1 className="text-white text-3xl mb-2">Security & Compliance</h1>
             <p className="text-[#B0B6C1]">Manage security settings and compliance standards</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
+          <Button variant="secondary">
             <Download className="w-4 h-4" />
             Export Compliance Report
-          </button>
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -353,9 +354,9 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex justify-end mt-6">
-                <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
+                <Button variant="secondary">
                   Save Changes
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -382,9 +383,9 @@ export default function SecurityPage() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-green-500 to-green-600" style={{ width: '95%' }}></div>
                   </div>
-                  <button className="w-full mt-4 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                  <Button variant="primary" fullWidth>
                     View Details
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -407,9 +408,9 @@ export default function SecurityPage() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-green-500 to-green-600" style={{ width: '92%' }}></div>
                   </div>
-                  <button className="w-full mt-4 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                  <Button variant="primary" fullWidth>
                     View Details
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -432,9 +433,9 @@ export default function SecurityPage() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-[#00F5C6] to-[#00AEEF]" style={{ width: '78%' }}></div>
                   </div>
-                  <button className="w-full mt-4 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                  <Button variant="primary" fullWidth>
                     View Details
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -450,9 +451,9 @@ export default function SecurityPage() {
                       not applicable
                     </span>
                   </div>
-                  <button className="w-full mt-4 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                  <Button variant="primary" fullWidth>
                     View Details
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>

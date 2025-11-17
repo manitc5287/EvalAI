@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useRolesStore } from '@/src/store/useRolesStore';
 import { RoleStats } from '../components/role-stats';
-import { RoleSearchBar } from '../components/role-search-bar';
+import { SearchBar } from '@/src/shared/components';
 import { RoleCard } from '../components/role-card';
 import { RoleModal } from '../components/role-modal';
 import { Role } from '../types';
@@ -107,8 +107,8 @@ export function RolesPage() {
           customRoles={customRoles}
         />
 
-        {/* Search Bar */}
-        <RoleSearchBar onSearch={handleSearch} />
+  {/* Search Bar */}
+  <SearchBar onSearch={handleSearch} placeholder="Search roles..." />
 
         {/* Roles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

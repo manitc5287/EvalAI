@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Settings, Palette, Plug, Accessibility, Zap, ChevronDown, Building2, Shield, Brain } from 'lucide-react'
+import { Button } from '@/src/shared/components'
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('general')
@@ -332,9 +333,9 @@ export default function SettingsPage() {
                             <p className="text-sm text-[#B0B6C1]">Not Connected</p>
                           </div>
                         </div>
-                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                        <Button variant="secondary" size="sm">
                           Connect
-                        </button>
+                        </Button>
                       </div>
 
                       {/* Jira */}
@@ -360,9 +361,9 @@ export default function SettingsPage() {
                             <p className="text-sm text-[#B0B6C1]">Not Connected</p>
                           </div>
                         </div>
-                        <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-8 rounded-md gap-1.5 px-3 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                        <Button variant="secondary" size="sm">
                           Connect
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -546,9 +547,9 @@ export default function SettingsPage() {
 
         {/* Save Button */}
         <div className="flex justify-end">
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+          <Button variant="secondary">
             Save Changes
-          </button>
+          </Button>
         </div>
       </div>
     </div>

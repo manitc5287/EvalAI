@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Plus, Building2 } from 'lucide-react';
 import { useDepartmentsStore } from '@/src/store/useDepartmentsStore';
 import { DepartmentStats } from '../components/department-stats';
-import { DepartmentSearchBar } from '../components/department-search-bar';
+import { SearchBar } from '@/src/shared/components';
 import { DepartmentCard } from '../components/department-card';
 import { DepartmentModal } from '../components/department-modal';
 import { getDepartmentStats } from '../lib/departments-helpers';
@@ -100,8 +100,8 @@ export function DepartmentsPage() {
           totalEmployees={stats.totalEmployees}
         />
 
-        {/* Search Bar */}
-        <DepartmentSearchBar value={searchQuery} onChange={handleSearch} />
+  {/* Search Bar */}
+  <SearchBar value={searchQuery} onChange={handleSearch} placeholder="Search departments..." />
 
         {/* Departments Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

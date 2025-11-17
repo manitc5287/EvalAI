@@ -137,10 +137,10 @@ export function DashboardInsights() {
                 <p className="text-white text-sm mb-2">⚠️ Action Required</p>
                 <p className="text-[#B0B6C1] text-sm">3 departments need KPI alignment. Run AI auto-setup to optimize.</p>
               </div>
-              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 w-full border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-[#00F5C6]/10">
+              <Button variant="secondary" fullWidth>
                 View All Insights
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-              </button>
+              </Button>
             </div>
           </div>
         </div>

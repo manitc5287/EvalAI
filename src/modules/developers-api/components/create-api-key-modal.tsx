@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus } from 'lucide-react';
-import { FormModal } from '@/src/shared/components/form-modal';
+import { FormModal } from '@/src/shared/components/FormModal';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {

@@ -10,6 +10,7 @@ import {
   Activity,
   Zap
 } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { StatsCard } from '../components/stats-card';
 import { DashboardInsights } from '../components/dashboard-insights';
 import { RecentActivityCard } from '../components/recent-activity-card';
@@ -41,10 +42,10 @@ export default function DashboardPage() {
             <h1 className="text-white text-3xl mb-2">Dashboard</h1>
             <p className="text-[#B0B6C1]">Welcome back! Here's what's happening with your organization.</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+          <Button variant="secondary">
             <Zap className="w-4 h-4 mr-2" />
             Quick Start AI Setup
-          </button>
+          </Button>
         </div>
 
         {/* Stats Grid */}

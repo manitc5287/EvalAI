@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Plug, Check, Settings as SettingsIcon, Search, ExternalLink } from 'lucide-react';
+import { Plug, Check, Settings as SettingsIcon, ExternalLink } from 'lucide-react';
+import { SearchBar, Button } from '@/src/shared/components';
 
 export default function IntegrationsPage() {
   const [activeTab, setActiveTab] = useState('all');
@@ -115,10 +116,10 @@ export default function IntegrationsPage() {
             <h1 className="text-white text-3xl mb-2">Integrations</h1>
             <p className="text-[#B0B6C1]">Connect EvalAI with your favorite tools</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+          <Button variant="primary">
             <ExternalLink className="w-4 h-4" />
             Request Integration
-          </button>
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -161,16 +162,7 @@ export default function IntegrationsPage() {
         </div>
 
         {/* Search */}
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0B6C1]" />
-            <input
-              type="text"
-              placeholder="Search integrations..."
-              className="w-full h-9 pl-10 px-3 py-1 rounded-md border border-white/10 bg-white/5 text-white placeholder:text-[#B0B6C1] outline-none focus:border-[#00F5C6] transition-all"
-            />
-          </div>
-        </div>
+        <SearchBar placeholder="Search integrations..." />
 
         {/* Tabs */}
         <div className="flex flex-wrap gap-[3px] p-[3px] bg-white/5 border border-white/10 rounded-xl w-fit">
@@ -272,17 +264,17 @@ export default function IntegrationsPage() {
                 <div className="flex gap-2">
                   {integration.connected ? (
                     <>
-                      <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all flex-1">
+                      <Button variant="primary" fullWidth>
                         Disconnect
-                      </button>
+                      </Button>
                       <button className="inline-flex items-center justify-center size-9 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
                         <SettingsIcon className="w-4 h-4" />
                       </button>
                     </>
                   ) : (
-                    <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all flex-1">
+                    <Button variant="secondary" fullWidth className="flex-1">
                       Connect
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>

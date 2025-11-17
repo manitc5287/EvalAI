@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Key, Zap, Code, ExternalLink as ExternalLinkIcon, BookOpen, Plus, Eye, Copy, Trash2 } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { CreateAPIKeyModal } from '../components/create-api-key-modal';
 import type { CreateAPIKeyInput } from '../types';
 

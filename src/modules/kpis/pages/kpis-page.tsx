@@ -6,7 +6,7 @@ import { useKPIsStore } from '@/src/store/useKPIsStore';
 import { KPIPackCard } from '../components/kpi-pack-card';
 import { KPIRecommendations } from '../components/kpi-recommendations';
 import { KPIListItem } from '../components/kpi-list-item';
-import { KPISearchBar } from '../components/kpi-search-bar';
+import { SearchBar } from '@/src/shared/components';
 import { KPIModal } from '../components/kpi-modal';
 import { KPI, KPIPack } from '../types';
 import { KPIFormData } from '../schemas/kpi.schema';
@@ -219,8 +219,8 @@ export function KPIsPage() {
         {/* AI Recommendations */}
         <KPIRecommendations onViewRecommendations={handleViewRecommendations} />
 
-        {/* Search Bar */}
-        <KPISearchBar onSearch={handleSearch} onFilter={handleFilter} />
+  {/* Search Bar */}
+  <SearchBar onSearch={handleSearch} onFilter={handleFilter} placeholder="Search KPIs..." />
 
         {/* Active KPIs List */}
         <div className="relative group">

@@ -1,9 +1,8 @@
 'use client';
 
-import { User, UserStatus } from '../types';
-import { Eye, Edit, UserX } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { StatusBadge, ActionsDropdown, createActions } from '@/src/shared/components';
+import { ActionsDropdown, createActions, StatusBadge } from '@/src/shared/components';
+import { Eye, UserX } from 'lucide-react';
+import { User } from '../types';
 
 interface UserTableProps {
   users?: User[];

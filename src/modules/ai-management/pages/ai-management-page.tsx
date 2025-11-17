@@ -5,6 +5,7 @@
 'use client';
 
 import { Brain, Zap, TrendingUp, Activity, CircleAlert, Settings } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -65,10 +66,10 @@ export default function AIManagementPage() {
             <h1 className="text-white text-3xl mb-2">AI Management</h1>
             <p className="text-[#B0B6C1]">Configure and monitor AI models, prompts, and usage</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
-            <Zap className="w-4 h-4 mr-2" />
-            Run Auto-Setup
-          </button>
+                    <Button variant="secondary">
+            <Brain className="w-4 h-4 mr-2" />
+            Configure AI
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -255,9 +256,9 @@ export default function AIManagementPage() {
                           Enable auto-fallback to GPT-3.5 on errors
                         </label>
                       </div>
-                      <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                      <Button variant="secondary">
                         Save Configuration
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </div>

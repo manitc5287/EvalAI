@@ -1,6 +1,7 @@
 'use client';
 
-import { Download, FileCheck, CircleAlert, Search, Calendar, ChevronDown } from 'lucide-react';
+import { Download, FileCheck, CircleAlert, Calendar, ChevronDown } from 'lucide-react';
+import { SearchBar, Button } from '@/src/shared/components';
 
 export default function AuditLogsPage() {
   const auditLogs = [
@@ -116,10 +117,10 @@ export default function AuditLogsPage() {
             <h1 className="text-white text-3xl mb-2">Audit Logs</h1>
             <p className="text-[#B0B6C1]">Track all system activities and changes</p>
           </div>
-          <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
+          <Button variant="secondary">
             <Download className="w-4 h-4" />
             Export Logs
-          </button>
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -177,14 +178,7 @@ export default function AuditLogsPage() {
         <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0B6C1]" />
-              <input
-                type="text"
-                placeholder="Search logs..."
-                className="w-full h-9 pl-10 px-3 py-1 rounded-md border border-white/10 bg-white/5 text-white placeholder:text-[#B0B6C1] outline-none focus:border-[#00F5C6] transition-all"
-              />
-            </div>
+            <SearchBar placeholder="Search logs..." />
 
             {/* Category Filter */}
             <div className="relative">
@@ -211,10 +205,10 @@ export default function AuditLogsPage() {
             </div>
 
             {/* Date Picker */}
-            <button className="inline-flex items-center justify-start gap-2 h-9 px-4 py-2 rounded-md border border-white/10 text-white bg-white/5 hover:bg-white/10 transition-all">
+            <Button variant="primary">
               <Calendar className="w-4 h-4" />
               Pick a date
-            </button>
+            </Button>
           </div>
         </div>
 

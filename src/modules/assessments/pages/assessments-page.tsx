@@ -5,6 +5,7 @@
 'use client';
 
 import { Calendar, Users, CircleCheck, Plus, ChevronRight, Clock } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { useState } from 'react';
 import { useAssessmentsStore } from '../../../store/useAssessmentsStore';
 import { AssessmentModal } from '../components/assessment-modal';
@@ -230,9 +231,9 @@ export default function AssessmentsPage() {
                           >
                             Edit
                           </button>
-                          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
+                          <Button variant="secondary">
                             Manage
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </div>

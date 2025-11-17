@@ -5,6 +5,7 @@
 'use client';
 
 import { Building2, Palette, Users, Shield, Target, UserCog, Lock, Brain, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { useState } from 'react';
 
 export default function OrganizationSetupPage() {
@@ -149,10 +150,10 @@ export default function OrganizationSetupPage() {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-[#B0B6C1]">Define your organizational structure</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                      <Button variant="secondary">
                         <Brain className="w-4 h-4" />
                         AI Auto-Suggest
-                      </button>
+                      </Button>
                     </div>
                     <div className="space-y-3">
                       <div className="p-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
@@ -191,9 +192,9 @@ export default function OrganizationSetupPage() {
                         <button className="h-8 px-3 rounded-md text-sm text-[#B0B6C1] hover:bg-white/5 transition-all">Edit</button>
                       </div>
                     </div>
-                    <button className="w-full h-9 px-4 py-2 rounded-md border border-white/10 text-white hover:bg-white/5 transition-all">
+                    <Button variant="primary" fullWidth>
                       + Add Department
-                    </button>
+                    </Button>
                   </div>
                 )}
 
@@ -201,10 +202,10 @@ export default function OrganizationSetupPage() {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-[#B0B6C1]">Configure roles and permissions</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                      <Button variant="secondary">
                         <Brain className="w-4 h-4" />
                         AI Auto-Configure
-                      </button>
+                      </Button>
                     </div>
                     <div className="space-y-3">
                       <div className="p-4 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
@@ -243,10 +244,10 @@ export default function OrganizationSetupPage() {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-[#B0B6C1]">Select KPI packs for your organization</p>
-                      <button className="inline-flex items-center gap-2 h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                      <Button variant="secondary">
                         <Brain className="w-4 h-4" />
                         AI Recommendations
-                      </button>
+                      </Button>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="p-4 rounded-lg bg-white/5 border border-white/10">
@@ -293,9 +294,9 @@ export default function OrganizationSetupPage() {
                         className="w-full h-9 px-3 py-2 bg-white/5 border border-white/10 rounded-md text-white placeholder:text-[#B0B6C1]/50 focus:outline-none focus:border-[#00F5C6] transition-all"
                       />
                     </div>
-                    <button className="h-9 px-4 py-2 rounded-md border border-[#00F5C6]/50 text-[#00F5C6] hover:bg-white/5 transition-all">
+                    <Button variant="secondary">
                       Add Another Admin
-                    </button>
+                    </Button>
                   </div>
                 )}
 
@@ -362,9 +363,9 @@ export default function OrganizationSetupPage() {
                         </div>
                       </label>
                     </div>
-                    <button className="w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-white font-medium hover:opacity-90 transition-all">
+                    <Button variant="secondary" fullWidth size="lg">
                       Run AI Auto-Setup
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>

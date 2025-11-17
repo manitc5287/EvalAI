@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CreditCard, Plus, Zap, Download, Check } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 
 export default function BillingPage() {
   const [activeTab, setActiveTab] = useState('usage');
@@ -56,14 +57,14 @@ export default function BillingPage() {
             <p className="text-[#B0B6C1]">Manage your subscription and token usage</p>
           </div>
           <div className="flex gap-3">
-            <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+            <Button variant="primary">
               <CreditCard className="w-4 h-4" />
               Payment Method
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
-              <Plus className="w-4 h-4" />
-              Buy Tokens
-            </button>
+            </Button>
+                        <Button variant="secondary">
+              <CreditCard className="w-4 h-4" />
+              Add Payment Method
+            </Button>
           </div>
         </div>
 
@@ -110,9 +111,9 @@ export default function BillingPage() {
 
             <div className="mt-6 pt-6 border-t border-white/10">
               <p className="text-[#B0B6C1] text-sm mb-2">Next billing date: December 1, 2024</p>
-              <button className="w-full h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+              <Button variant="primary" fullWidth>
                 Change Plan
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -157,10 +158,10 @@ export default function BillingPage() {
                 </div>
               </div>
 
-              <button className="w-full mt-4 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all inline-flex items-center justify-center gap-2">
+                            <Button variant="secondary" fullWidth className="mt-4">
                 <Plus className="w-4 h-4" />
-                Purchase Additional Tokens
-              </button>
+                Add New Token Package
+              </Button>
             </div>
           </div>
         </div>
@@ -205,10 +206,10 @@ export default function BillingPage() {
             <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-white">Daily Token Usage</h3>
-                <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+                <Button variant="primary">
                   <Download className="w-4 h-4" />
                   Export
-                </button>
+                </Button>
               </div>
 
               <div className="overflow-x-auto">
@@ -243,10 +244,10 @@ export default function BillingPage() {
             <div className="p-6 bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#00F5C6]/30 transition-all">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-white">Billing History</h3>
-                <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+                <Button variant="primary">
                   <Download className="w-4 h-4" />
                   Download All
-                </button>
+                </Button>
               </div>
 
               <div className="overflow-x-auto">

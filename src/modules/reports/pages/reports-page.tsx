@@ -5,6 +5,7 @@
 'use client';
 
 import { TrendingUp, Users, Target, Award, Share2, Download, Calendar, Filter } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 import { LineChart, Line, BarChart, Bar, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function ReportsPage() {
@@ -98,14 +99,14 @@ export default function ReportsPage() {
             <p className="text-[#B0B6C1]">Comprehensive insights into organizational performance</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 border border-white/10 text-white hover:bg-white/5">
-              <Share2 className="w-4 h-4 mr-2" />
+            <Button variant="primary">
+              <Share2 className="w-4 h-4" />
               Share Report
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90">
-              <Download className="w-4 h-4 mr-2" />
-              Export PDF
-            </button>
+            </Button>
+                        <Button variant="secondary">
+              <Download className="w-4 h-4" />
+              Export Report
+            </Button>
           </div>
         </div>
 
@@ -128,10 +129,10 @@ export default function ReportsPage() {
                   <option>Sales</option>
                   <option>Support</option>
                 </select>
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 border border-white/10 text-white hover:bg-white/5">
-                  <Filter className="w-4 h-4 mr-2" />
+                <Button variant="primary">
+                  <Filter className="w-4 h-4" />
                   More Filters
-                </button>
+                </Button>
               </div>
             </div>
           </div>

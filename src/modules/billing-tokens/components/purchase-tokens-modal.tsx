@@ -5,7 +5,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FormModal } from '@/src/shared/components/form-modal';
+import { FormModal } from '@/src/shared/components/FormModal';
 import { Button } from '@/components/ui/button';
 import { TokenPackageCard } from './token-package-card';
 import { TOKEN_PACKAGES } from '../constants/token-packages';

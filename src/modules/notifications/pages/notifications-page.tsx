@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Bell, CircleAlert, Target, CheckCheck, FileText, Users, Brain, Settings, Check, Trash2 } from 'lucide-react';
+import { Button } from '@/src/shared/components';
 
 export default function NotificationsPage() {
   const [activeTab, setActiveTab] = useState('all');
@@ -109,10 +110,10 @@ export default function NotificationsPage() {
             <p className="text-[#B0B6C1]">Stay updated with your team's activities</p>
           </div>
           <div className="flex gap-3">
-            <button className="inline-flex items-center justify-center gap-2 h-9 px-4 py-2 rounded-md text-sm font-medium border border-white/10 text-white hover:bg-white/5 transition-all">
+            <Button variant="primary">
               <CheckCheck className="w-4 h-4" />
               Mark All Read
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -370,9 +371,9 @@ export default function NotificationsPage() {
                 </div>
               </div>
 
-              <button className="w-full mt-6 h-9 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-[#00F5C6] to-[#00AEEF] text-[#0A0F1C] hover:opacity-90 transition-all">
-                Save Settings
-              </button>
+                            <Button variant="secondary" fullWidth>
+                Save Notification Settings
+              </Button>
             </div>
           </div>
         </div>
