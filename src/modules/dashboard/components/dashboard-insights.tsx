@@ -18,6 +18,7 @@ import {
   Cell,
 } from "recharts";
 import { Brain } from "lucide-react";
+import { Button } from "@/src/shared/components";
 
 const lineData = [
   { name: "Jan", value: 56 },
